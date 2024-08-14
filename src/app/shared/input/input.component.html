@@ -1,0 +1,28 @@
+<!-- <div>
+    <input [type]="type" id="sharedInput" [ngModel]="inputValue" (ngModelChange)="onInputChange($event)" [placeholder]="placeholder" />
+</div> -->
+
+<div class="w-full" *ngIf="type != 'area'">
+    <label class="block mb-2 text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
+    <input class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        [ngClass]="{'border-red-500':formControl.invalid && (formControl.touched || error)}"
+        [type]="type"
+        [name]="name"
+        [formControl]="formControl"
+        (input)="onInputChange($event)"
+        (blur)="onTouched()"
+        (ngModelChange)="onValueChange($event)"
+      />
+      <small class="error-message text-red-500" *ngIf="formControl.invalid && (formControl.touched || error)">This field is required</small>
+</div>
+
+<div class="w-full" *ngIf="type == 'area'" >
+    <label class="block mb-2 text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
+    <textarea  class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " 
+            id="message" 
+            [rows]="rows"
+            [placeholder]="placeholder"
+            [formControl]="formControl">
+    </textarea>
+</div>
+
