@@ -4,7 +4,11 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'], // ตั้งค่า poppins เป็นฟอนต์หลัก
+      },
+    },
   },
   plugins: [
     require('daisyui'),

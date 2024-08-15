@@ -8,6 +8,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { IndexComponent } from './layouts/index/index.component';
 import { provideHttpClient } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
+import { ToastService, AngularToastifyModule } from 'angular-toastify'; 
 
 @NgModule({
   declarations: [
@@ -19,10 +20,12 @@ import { ComponentsModule } from './components/components.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    AngularToastifyModule
   ],
   providers: [
-    provideHttpClient()
+    provideHttpClient(),
+    ToastService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from '../../models/account/account.model';
 import { Router } from '@angular/router';
+import { ToastService } from 'angular-toastify';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,8 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit{
 
   constructor(
-    private route: Router
+    private _route: Router,
+    private _toastService: ToastService
   ){}
   
   account: Account = {
@@ -34,7 +36,11 @@ export class NavbarComponent implements OnInit{
 
   onLogut():void {
     localStorage.removeItem('account')
-    this.route.navigate(['auth'])
+    this._route.navigate(['auth'])
   }
+
+  addInfoToast() {
+    this._toastService.info('message');
+ }
 
 }
