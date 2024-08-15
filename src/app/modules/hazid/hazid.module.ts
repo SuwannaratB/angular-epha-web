@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HazidRoutingModule } from './hazid-routing.module';
 import { HazidComponent } from './hazid.component';
+import { ComponentsModule } from '../../components/components.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { HazidComponent } from './hazid.component';
   ],
   imports: [
     CommonModule,
-    HazidRoutingModule
+    HazidRoutingModule,
+    ComponentsModule
   ]
 })
 export class HazidModule { }

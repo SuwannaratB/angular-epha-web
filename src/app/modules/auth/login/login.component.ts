@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Account } from '../../../models/account/account.model';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
     private router: Router
   ){}
 
+  account: Account = { username: '', img: '' }; 
   loginForm: FormGroup | any
   error:boolean = false;
 
@@ -32,7 +34,10 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return alert('Invalid')
     }
-    sessionStorage.setItem('account',JSON.stringify(this.loginForm.value))
+
+    this.account.username = this.loginForm.value.username
+    this.account.img = 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
+    localStorage.setItem('account',JSON.stringify(this.account))
     this.router.navigate([''])
   }
 }

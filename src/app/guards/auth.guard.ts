@@ -5,7 +5,7 @@ export const authGuard: CanActivateChildFn = (childRoute, state) => {
   console.log('Guard ...')
   
   const router = inject(Router);
-  if (sessionStorage.getItem('account')) {
+  if (localStorage.getItem('account')) {
     return true;
   }
   router.navigate(['auth']);
