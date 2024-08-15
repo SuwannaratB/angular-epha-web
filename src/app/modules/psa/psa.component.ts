@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './psa.component.scss'
 })
 export class PsaComponent {
-
+  title: string = 'PSA'
 }

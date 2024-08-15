@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './lopa.component.scss'
 })
 export class LopaComponent {
-
+  title: string = 'LOPA'
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { LopaRoutingModule } from './lopa-routing.module';
 import { LopaComponent } from './lopa.component';
+import { ComponentsModule } from '../../components/components.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { LopaComponent } from './lopa.component';
   ],
   imports: [
     CommonModule,
-    LopaRoutingModule
+    LopaRoutingModule,
+    ComponentsModule
   ]
 })
 export class LopaModule { }
