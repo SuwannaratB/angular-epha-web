@@ -25,6 +25,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   @Input() label: string = '';
   @Input() id: string = '';
   @Input() name: string = '';
+  @Input() icon: string = '';
   @Input() error: boolean = false;
   @Input() formControl: FormControl = new FormControl; 
 

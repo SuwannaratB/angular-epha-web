@@ -8,7 +8,8 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { IndexComponent } from './layouts/index/index.component';
 import { provideHttpClient } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
-import { ToastService, AngularToastifyModule } from 'angular-toastify'; 
+import { ToastService, AngularToastifyModule } from 'angular-toastify';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; 
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ToastService, AngularToastifyModule } from 'angular-toastify';
   ],
   providers: [
     provideHttpClient(),
-    ToastService
+    ToastService,
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
