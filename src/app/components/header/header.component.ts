@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +7,14 @@ import { Component, Input } from '@angular/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  @Input() title: string = '';
+
+  constructor(
+    private _route: Router
+  ){}
+
+  @Input() phaNo: string = '';
+
+  onBack(): void{
+    this._route.navigate([''])
+  }
 }

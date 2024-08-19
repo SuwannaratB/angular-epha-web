@@ -1,5 +1,5 @@
 
-<div class="flex min-h-[100vh] flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/images/background.png')] bg-cover bg-center">
+<div class="flex min-h-[100vh] flex-col justify-center px-6 py-12 lg:px-8 bg-[url('/images/auth-images/background.png')] bg-cover bg-center">
   <div class="card md:card-side rounded-md bg-white p-6 shadow-xl sm:mx-auto sm:w-full sm:max-w-max">
 
     <section class="relative rounded-md bg-[url('/images/38.png')] bg-cover bg-center p-12">
@@ -9,13 +9,13 @@
         <p class="text-[#8a94ad]">Process Hazard Analysis</p>
       </div>
       <div class="mb-32 text-black">
-        <div class=""><i class="fa-regular fa-circle-check text-green-600 text-sm pr-2"></i>HAZOP</div>
-        <div class=""><i class="fa-regular fa-circle-check text-green-600 text-sm pr-2"></i>JSEA</div>
-        <div class=""><i class="fa-regular fa-circle-check text-green-600 text-sm pr-2"></i>What’s If</div>
-        <div class=""><i class="fa-regular fa-circle-check text-green-600 text-sm pr-2"></i>HRA</div>
-        <div class=""><i class="fa-regular fa-circle-check text-green-600 text-sm pr-2"></i>Bow-Tie Diagram</div>
+        <div class="flex items-center"><mat-icon class="text-green-600 text-xl pt-1" >check_circle_outline</mat-icon>HAZOP</div>
+        <div class="flex items-center"><mat-icon class="text-green-600 text-xl pt-1" >check_circle_outline</mat-icon>JSEA</div>
+        <div class="flex items-center"><mat-icon class="text-green-600 text-xl pt-1" >check_circle_outline</mat-icon>What’s If</div>
+        <div class="flex items-center"><mat-icon class="text-green-600 text-xl pt-1" >check_circle_outline</mat-icon>HRA</div>
+        <div class="flex items-center"><mat-icon class="text-green-600 text-xl pt-1" >check_circle_outline</mat-icon>Bow-Tie Diagram</div>
       </div>
-      <img class="w-72" src="/images/auth.png" alt="">
+      <img class="w-72" src="/images/auth-images/auth.png" alt="">
     </section>
 
     <section class="py-10 px-24">
@@ -46,7 +46,7 @@
                     [error]="error"/>
                 </div>
                 <div>
-                  <button (click)="onLogin()" class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-medium leading-6 text-white shadow-sm hover:bg-blue-500">Sign in</button>
+                  <button (click)="onLogin()" class="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-md font-medium leading-6 text-white shadow-sm hover:bg-blue-500">Sign in</button>
                 </div>
               </form>
       

@@ -1,7 +1,6 @@
 export const environment = {
   production: false,
-  // apiUrl: 'http://localhost:4200',
-  apiUrl: 'https://qas-epha.thaioilgroup.com/service/api',
-  // imageUrl: '/uploads/images/products',
-  // avatarUrl: '/uploads/images/profiles',
+  // domain: `http://localhost:4200`,
+  domain: `https://qas-epha.thaioilgroup.com`,
+  apiUrl: `https://qas-epha.thaioilgroup.com/service/api`,
 };

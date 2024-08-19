@@ -8,6 +8,7 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { ToastService, AngularToastifyModule } from 'angular-toastify'; 
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ToastService, AngularToastifyModule } from 'angular-toastify';
     AuthRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    AngularToastifyModule
+    AngularToastifyModule,
+    MatIconModule
   ],
   providers: [
     ToastService

@@ -5,9 +5,22 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['Montserrat', 'sans-serif'], // ตั้งค่า poppins เป็นฟอนต์หลัก
+      colors: {
+        primary: '#3874ff',
+        danger: '#ed2000',
+        success: '#25b003',
       },
+      fontSize: {
+        'xs': '8px', 
+        'sm': '10px', 
+        'md': '12px',  
+        'lg': '14px', 
+        'xl': '18px',  
+        '2xl': '20px',  
+      },
+      // fontFamily: {
+      //   sans: ['Montserrat', 'sans-serif'], // ตั้งค่า poppins เป็นฟอนต์หลัก
+      // },
     },
   },
   plugins: [

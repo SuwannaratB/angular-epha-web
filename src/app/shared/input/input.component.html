@@ -15,7 +15,7 @@
         </svg> -->
         <mat-icon *ngIf="icon" class="text-[18px] pt-[3.5px]">{{icon}}</mat-icon>
 
-        <input class="grow bg-white border border-none text-gray-900 text-xs rounded-md block w-full"
+        <input class="grow bg-white border border-none text-gray-900 text-md rounded-md block w-full"
             [ngClass]="{'border-red-500':formControl.invalid && (formControl.touched || error)}"
             [type]="type"
             [name]="name"
