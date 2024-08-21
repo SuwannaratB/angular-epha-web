@@ -2,19 +2,10 @@
     <input [type]="type" id="sharedInput" [ngModel]="inputValue" (ngModelChange)="onInputChange($event)" [placeholder]="placeholder" />
 </div> -->
 
-<div class="w-full" *ngIf="type != 'area'">
-    <!-- <label class="block mb-2 text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label> -->
-    <label class="input input-bordered flex items-center gap-2 bg-white h-9 border-gray-300" >
-        <!-- <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            class="h-4 w-4 opacity-70">
-            <path
-            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-        </svg> -->
+<div class="w-full min-w-40" *ngIf="type != 'area'">
+    <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
+    <label class="input input-bordered flex items-center gap-2 bg-white h-9 border-gray-300" style="outline: none;">
         <mat-icon *ngIf="icon" class="text-[18px] pt-[3.5px]">{{icon}}</mat-icon>
-
         <input class="grow bg-white border border-none text-gray-900 text-md rounded-md block w-full"
             [ngClass]="{'border-red-500':formControl.invalid && (formControl.touched || error)}"
             [type]="type"
@@ -26,16 +17,18 @@
             (ngModelChange)="onValueChange($event)"
         />
     </label>
-    <small class="error-message text-red-500" *ngIf="formControl.invalid && (formControl.touched || error)">This field is required</small>
+    <small class="error-message text-red-500" *ngIf="formControl.invalid && (formControl.touched || error)">
+        This field is required
+    </small>
 </div>
 
-<div class="w-full" *ngIf="type == 'area'" >
-    <label class="block mb-2 text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
-    <textarea  class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " 
-            id="message" 
-            [rows]="rows"
-            [placeholder]="placeholder"
-            [formControl]="formControl">
+<div class="w-full min-w-40" *ngIf="type == 'area'" >
+    <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
+    <textarea  class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300" 
+        id="message" 
+        [rows]="rows"
+        [placeholder]="placeholder"
+        [formControl]="formControl">
     </textarea>
 </div>
 

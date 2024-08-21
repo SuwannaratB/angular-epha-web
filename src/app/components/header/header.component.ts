@@ -17,4 +17,16 @@ export class HeaderComponent {
   onBack(): void{
     this._route.navigate([''])
   }
+
+  onCancel(): void{
+    console.log('onCancel')
+  }
+
+  onSave(): void{
+    console.log('onSave')
+  }
+
+  onTaskRegister(): void{
+    console.log('onTaskRegister')
+  }
 }

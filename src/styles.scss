@@ -8,6 +8,25 @@
 
 html, body {  
     background: #f5f7fa; 
-    color: #1f2937;
+    color: #374151;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* ปรับแต่งโมดัลทุกตัวในโปรเจค */
+  
+.mat-mdc-dialog-surface {
+    background: #fff !important;
+    border-radius: 8px !important; /* ตั้งค่า border-radius */
+    padding: 16px !important; /* เพิ่ม padding ถ้าต้องการ */
+}
+
+.cdk-overlay-pane.mat-mdc-dialog-panel {
+    display: flex;
+    justify-content: center;
+    /* max-width: var(--mat-dialog-container-max-width, 80vw); */
+    min-width: 94% !important;
+}
+
+.cdk-overlay-pane {
+    max-width: 94% !important;
+}

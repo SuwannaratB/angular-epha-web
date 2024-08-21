@@ -12,7 +12,10 @@ const routes: Routes = [
   //     { path: 'lopa', loadChildren: () => import('./modules/lopa/lopa.module').then(m => m.LopaModule) }
   //   ]
   // },
-  { path: '', loadChildren: () => import('./modules/portal/portal.module').then(m => m.PortalModule) },
+  { path: '', loadChildren: () => import('./modules/portal/portal.module').then(m => m.PortalModule),
+    canActivateChild: [authGuard], 
+  },
+  
   { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule) },
 ];
 

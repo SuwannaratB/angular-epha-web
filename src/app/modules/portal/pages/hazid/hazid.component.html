@@ -12,8 +12,8 @@
                 [ngClass]="{
                     'text-white': currentTab == 1, 
                     'text-primary': currentTab != 1}"/>
-            <div role="tabpanel" class="tab-content border-[2px] border-t-primary p-6">
-                General Information
+            <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
+                <app-hazid-tab-general/>
             </div>
             <input
                 type="radio"
@@ -26,8 +26,8 @@
                 [ngClass]="{
                     'text-white': currentTab == 2, 
                     'text-primary': currentTab != 2}"/>
-            <div role="tabpanel" class="tab-content border-[2px] border-t-primary p-6">
-                Session
+            <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
+                <app-hazid-tab-session/>
             </div>
             <input type="radio" 
                 name="tabs_hazid" 
@@ -39,8 +39,8 @@
                 [ngClass]="{
                     'text-white': currentTab == 3, 
                     'text-primary': currentTab != 3}"/>
-            <div role="tabpanel" class="tab-content border-[2px] border-t-primary p-6">
-                Worksheet
+            <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
+                <app-hazid-tab-worksheet/>
             </div>
         </div>
     </div>

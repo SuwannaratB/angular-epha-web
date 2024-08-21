@@ -15,8 +15,9 @@ module.exports = {
         'sm': '10px', 
         'md': '12px',  
         'lg': '14px', 
-        'xl': '18px',  
-        '2xl': '20px',  
+        'xl': '16px',  
+        '2xl': '18px',  
+        '3xl': '20px',  
       },
       // fontFamily: {
       //   sans: ['Montserrat', 'sans-serif'], // ตั้งค่า poppins เป็นฟอนต์หลัก

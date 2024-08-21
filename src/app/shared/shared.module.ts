@@ -3,11 +3,17 @@ import { CommonModule } from '@angular/common';
 import { InputComponent } from './input/input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { SelectComponent } from './select/select.component';
+import { IconButtonComponent } from './icon-button/icon-button.component';
+import { ButtonComponent } from './button/button.component';
 
 
 @NgModule({
   declarations: [
-    InputComponent
+    InputComponent,
+    SelectComponent,
+    IconButtonComponent,
+    ButtonComponent
   ],
   imports: [
     CommonModule,
@@ -15,7 +21,10 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule
   ],
   exports: [
-    InputComponent
+    InputComponent,
+    SelectComponent,
+    IconButtonComponent,
+    ButtonComponent
   ]
 })
 export class SharedModule { }

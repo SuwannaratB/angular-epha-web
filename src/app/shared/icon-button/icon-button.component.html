@@ -1,0 +1,26 @@
+<button 
+    *ngIf="icon == 'delete'" 
+    (click)="onClick()"
+    class="flex items-center justify-center p-2 bg-[#f3f4f6] text-danger border-danger border-[1px] rounded-md">
+    <i class="fa-regular fa-trash-can text-xl"></i>
+</button>
+
+<button 
+    *ngIf="icon == 'copy'" 
+    (click)="onClick()"
+    class="flex items-center justify-center p-2 bg-[#f3f4f6] text-primary border-primary border-[1px] rounded-md">
+    <i class="fa-solid fa-copy text-xl"></i>
+</button>
+
+<button 
+    *ngIf="icon == 'add'" 
+    (click)="onClick()"
+    class="flex items-center justify-center p-2 bg-[#f3f4f6] text-success border-success border-[1px] rounded-md">
+    <i class="fa-solid fa-square-plus text-xl"></i>
+</button>
+
+<button 
+    *ngIf="icon == ''" 
+    class="flex items-center justify-center p-2 bg-[#f3f4f6] text-gray-400 border-gray-200 border-[1px] rounded-md">
+    icon not found! 
+</button>

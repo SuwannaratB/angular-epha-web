@@ -45,7 +45,6 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   }
 
   onValueChange(value: string): void {
-    console.log(value)
     this.inputValue = value;
     this.inputValueChange.emit(value);
   }

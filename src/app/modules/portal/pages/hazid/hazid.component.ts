@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class HazidComponent {
 
   phaNo: string = 'HAZID-2024-00000XX'
-  currentTab: number = 1;
+  currentTab: number = 2;
 
   toggleTabs(id:number): void{
     this.currentTab = id;
