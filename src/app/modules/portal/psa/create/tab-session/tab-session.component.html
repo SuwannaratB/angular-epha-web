@@ -1,0 +1,50 @@
+<div class="flex flex-col gap-2 rounded-lg border-[1px] border-gray-200 p-6">
+    <app-title title="Session" />
+    <div class="overflow-x-auto">
+        <table class="table text-md">
+          <thead>
+            <tr class="uppercase text-gray-700">
+              <th class="text-center">No</th>
+              <th class="text-center">Member team and Assessment Team Leader</th>
+              <th class="text-center">Session Date Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">1</td>
+              <td class="text-center">
+                <div class="w-full flex items-center justify-center gap-4">
+                    <button class="flex items-center gap-2 font-semibold border-[1px] border-[#2445fc] text-[#2445fc] bg-gray-100 py-[6px] px-6 rounded-md" 
+                        (click)="openDialog()">
+                        <i class="fa-regular fa-address-book text-lg"></i>
+                        Add Member Team/Attendees
+                    </button>
+                    <button class="flex items-center gap-2 font-semibold border-[1px] border-[#2445fc] text-[#2445fc] bg-gray-100 py-[6px] px-6 rounded-md" 
+                        (click)="openDialog()">
+                        <i class="fa-regular fa-address-book text-lg"></i>
+                        Add Assessment Team Leader
+                    </button>
+                </div>
+              </td>
+              <td class="text-center">
+                <div class="w-full flex items-center justify-between">
+                    <div class="flex items-center justify-center gap-2">
+                        <div class="w-52"><app-input type="date" /></div>
+                        <p>Time</p>
+                        <div class="w-52"><app-input type="time" /></div>
+                        <p>To</p>
+                        <div class="w-52"><app-input type="time" /></div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-2">
+                        <app-icon-button icon="delete" (outClick)="onDeleteClick()" />
+                        <app-icon-button icon="copy" (outClick)="onCopyClick()" />
+                        <app-icon-button icon="add" (outClick)="onAddClick()" />
+                    </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -9,24 +9,28 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
 
   constructor(
-    private _route: Router
+    private _location: Location
   ){}
 
   @Input() phaNo: string = '';
 
+  @Output() outCancel = new EventEmitter<void>();
+  @Output() outSave = new EventEmitter<void>();
+  @Output() outTaskRegister = new EventEmitter<void>();
+
   onBack(): void{
-    this._route.navigate([''])
+    this._location.back();
   }
 
   onCancel(): void{
-    console.log('onCancel')
+    this.outCancel.emit(); // ส่ง Event เมื่อคลิกปุ่ม
   }
 
   onSave(): void{
-    console.log('onSave')
+    this.outSave.emit(); // ส่ง Event เมื่อคลิกปุ่ม
   }
 
   onTaskRegister(): void{
-    console.log('onTaskRegister')
+    this.outTaskRegister.emit(); // ส่ง Event เมื่อคลิกปุ่ม
   }
 }

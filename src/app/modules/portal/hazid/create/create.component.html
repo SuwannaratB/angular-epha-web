@@ -1,0 +1,53 @@
+<div class="flex flex-col gap-4 min-h-[92vh] py-2 px-6">
+    <app-header 
+        [phaNo]="phaNo" 
+        (outSave)="onSave()"
+        (outCancel)="onCancel()"
+        (outTaskRegister)="onTaskRegister()" />
+    <div class="bg-white p-6 border-[1px] border-gray-200 rounded-lg shadow-md">
+        <div role="tablist" class="tabs tabs-lifted tabs-md">
+            <input 
+                type="radio" 
+                name="tabs_hazid" 
+                role="tab" 
+                class="tab text-md font-medium [--tab-bg:#3874ff] [--tab-border-color:#3874ff]" 
+                aria-label="General Information" 
+                (click)="toggleTabs(1)"
+                [checked]="currentTab == 1"
+                [ngClass]="{
+                    'text-white': currentTab == 1, 
+                    'text-primary': currentTab != 1}"/>
+            <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
+                <app-tab-general />
+            </div>
+            <input
+                type="radio"
+                name="tabs_hazid"
+                role="tab"
+                class="tab text-md font-medium [--tab-bg:#3874ff] [--tab-border-color:#3874ff]"
+                aria-label="Session" 
+                (click)="toggleTabs(2)"
+                [checked]="currentTab == 2"
+                [ngClass]="{
+                    'text-white': currentTab == 2, 
+                    'text-primary': currentTab != 2}"/>
+            <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
+                <app-tab-session />
+            </div>
+            <input 
+                type="radio" 
+                name="tabs_hazid" 
+                role="tab" 
+                class="tab text-md font-medium [--tab-bg:#3874ff] [--tab-border-color:#3874ff]" 
+                aria-label="Worksheet" 
+                (click)="toggleTabs(3)"
+                [checked]="currentTab == 3"
+                [ngClass]="{
+                    'text-white': currentTab == 3, 
+                    'text-primary': currentTab != 3}"/>
+            <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
+                <app-tab-worksheet />
+            </div>
+        </div>
+    </div>
+</div>

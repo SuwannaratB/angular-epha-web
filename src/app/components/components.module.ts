@@ -8,6 +8,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ModalMemberTeamComponent } from './modals/modal-member-team/modal-member-team.component';
 import { ModalAssessmentTeamComponent } from './modals/modal-assessment-team/modal-assessment-team.component';
 import { SharedModule } from '../shared/shared.module';
+import { ModalComponent } from './modals/modal/modal.component';
+import { HeaderFollowUpComponent } from './header-follow-up/header-follow-up.component';
+import { TableFollowUpComponent } from './tables/table-follow-up/table-follow-up.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -18,6 +22,10 @@ import { SharedModule } from '../shared/shared.module';
     HeaderComponent,
     ModalMemberTeamComponent,
     ModalAssessmentTeamComponent,
+    ModalComponent,
+    HeaderFollowUpComponent,
+    TableFollowUpComponent,
+    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -29,6 +37,8 @@ import { SharedModule } from '../shared/shared.module';
     HeaderComponent,
     BannerComponent,
     NavbarComponent,
+    TableFollowUpComponent,
+    HeaderFollowUpComponent,
   ]
 })
 export class ComponentsModule { }

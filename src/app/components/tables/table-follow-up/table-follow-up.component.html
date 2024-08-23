@@ -1,0 +1,36 @@
+<div class="max-h-96 overflow-auto">
+    <table class="table text-md border border-gray-300">
+      <thead class="bg-[#f5f7fa]">
+        <tr class="uppercase text-gray-700">
+          <th class="text-center border border-gray-300" rowspan="2"></th>
+          <th class="text-center border border-gray-300" rowspan="2">Sub-Software</th>
+          <th class="text-center border border-gray-300" rowspan="2">PHA Status</th>
+          <th class="text-center border border-gray-300" rowspan="2">PHA No.</th>
+          <th class="text-center border border-gray-300" rowspan="2">Task Name</th>
+          <th class="text-center border border-gray-300" colspan="3">Items Status</th>
+          <th class="text-center border border-gray-300" rowspan="2"></th>
+        </tr>
+        <tr class="uppercase text-gray-700">
+          <th class="text-center border border-gray-300">total</th>
+          <th class="text-center border border-gray-300">open</th>
+          <th class="text-center border border-gray-300">close</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataFollowUp">
+            <td class="text-center border border-gray-300 text-primary"><span class="link">See Action Items</span></td>
+            <td class="text-center border border-gray-300 uppercase">{{item.pha_sub_software}}</td>
+            <td class="text-center border border-gray-300 uppercase">{{item.pha_status_name}}</td>
+            <td class="text-center border border-gray-300 uppercase">{{item.pha_no}}</td>
+            <td class="text-center border border-gray-300">{{item.pha_request_name}}</td>
+            <td class="text-center border border-gray-300">{{item.status_total}}</td>
+            <td class="text-center border border-gray-300 text-danger">{{item.status_open}}</td>
+            <td class="text-center border border-gray-300 text-success">{{item.status_closed}}</td>
+            <td class="text-center border border-gray-300 text-primary"><span  class="link">See Details</span></td>
+        </tr>
+        <tr *ngIf="!dataFollowUp.length">
+            <td colspan="9" class="text-center border border-gray-300">No data available</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

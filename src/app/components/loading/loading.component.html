@@ -1,0 +1,14 @@
+<div class="flex justify-center items-center gap-4 h-20 ">
+    <div class="relative flex justify-center items-center w-10 h-10 border-black border-4 border-dotted rounded-full animate-spin-slow">
+        <i class="absolute text-center text-3xl fa-solid fa-question transition-opacity duration-1000" 
+            [class.opacity-0]="!showFirstIcon" 
+            [class.opacity-100]="showFirstIcon">
+        </i>
+        <i class="absolute text-center text-3xl fa-solid fa-exclamation transition-opacity duration-1000" 
+            [class.opacity-0]="showFirstIcon" 
+            [class.opacity-100]="!showFirstIcon">
+        </i> 
+    </div>
+    <p class="text-6xl font-semibold">Loading...</p>
+</div>
+

@@ -12,21 +12,12 @@ html, body {
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-/* ปรับแต่งโมดัลทุกตัวในโปรเจค */
-  
-.mat-mdc-dialog-surface {
-    background: #fff !important;
-    border-radius: 8px !important; /* ตั้งค่า border-radius */
-    padding: 16px !important; /* เพิ่ม padding ถ้าต้องการ */
-}
-
-.cdk-overlay-pane.mat-mdc-dialog-panel {
-    display: flex;
-    justify-content: center;
-    /* max-width: var(--mat-dialog-container-max-width, 80vw); */
-    min-width: 94% !important;
-}
-
-.cdk-overlay-pane {
-    max-width: 94% !important;
+/* ปรับแต่งแท็บทุกตัวในโปรเจค */
+.tab {
+    --tab-padding: 36px; 
+    height: 36px;
+    white-space: nowrap; /* บังคับให้ข้อความอยู่บรรทัดเดียว */
+    // overflow: hidden; /* ซ่อนข้อความที่เกินพื้นที่ */
+    // text-overflow: ellipsis; /* ตัดข้อความที่เกินและแสดงเครื่องหมายจุดๆ */
+    // flex-shrink: 1; /* อนุญาตให้ข้อความหดตัวได้เมื่อหน้าจอเล็กลง */
 }

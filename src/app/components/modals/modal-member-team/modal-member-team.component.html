@@ -1,15 +1,18 @@
 <div class="flex flex-col gap-4">
-    <app-title title="Search Employee/Contract"/>
+    <div class="flex justify-between items-center">
+      <app-title title="Search Employee/Contract"/>
+      <button (click)="onClose()"><mat-icon>clear</mat-icon></button>
+    </div>
     <hr class="">
     <div class="w-72">
         <label class="text-md font-medium pl-1" for="">Indicator</label>
-        <app-input />
+        <app-input icon="search" placeholder="Indicator" />
     </div>
     <div class="">
         <table class="table text-md">
           <!-- head -->
           <thead>
-            <tr class="uppercase text-gray-700">
+            <tr class="border-gray-300 uppercase text-gray-700 ">
               <th class="text-center">employee</th>
               <th class="text-center">section</th>
               <th class="text-center">Indicator</th>
@@ -17,25 +20,13 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-                <td class="text-center">xxx</td>
-                <td class="text-center">TNPA</td>
-                <td class="text-center">TNPA-xxx</td>
-                <td class="text-center">Bluegmail.com</td>
-            </tr>
-            <tr>
-                <td class="text-center">xxx</td>
-                <td class="text-center">TNPA</td>
-                <td class="text-center">TNPA-xxx</td>
-                <td class="text-center">Bluegmail.com</td>
-            </tr>
-            <tr>
-                <td class="text-center">xxx</td>
-                <td class="text-center">TNPA</td>
-                <td class="text-center">TNPA-xxx</td>
-                <td class="text-center">Bluegmail.com</td>
+            <tr class="border-gray-300" *ngFor="let item of dataEmployee">
+                <td class="text-center">{{item.employee_displayname}}</td>
+                <td class="text-center">{{item.employee_position}}</td>
+                <td class="text-center">{{item.employee_position}}-{{item.employee_name}}</td>
+                <td class="text-center">{{item.employee_email}}</td>
             </tr>
           </tbody>
         </table>
-      </div>
+    </div>
 </div>

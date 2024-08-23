@@ -1,0 +1,13 @@
+::ng-deep .mat-mdc-dialog-surface {
+    background: #fff !important;
+    border-radius: 8px !important;
+    padding: 16px !important; 
+  }
+  
+  ::ng-deep .cdk-overlay-pane.mat-mdc-dialog-panel {
+    display: flex;
+    justify-content: center;
+    min-width: 200px !important;
+    // min-height: 100px !important;
+  }
+  
