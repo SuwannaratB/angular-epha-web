@@ -1,0 +1,47 @@
+<div class="flex flex-col gap-2 rounded-lg border-[1px] border-gray-200 p-6">
+    <app-title title="Drawing" />
+    <div class="overflow-x-auto">
+        <table class="table text-md">
+          <thead>
+            <tr class="uppercase text-gray-700 border-gray-300">
+              <th class="text-center">No</th>
+              <th class="text-start">Document Name</th>
+              <th class="text-start">Drawing No</th>
+              <th class="text-start">Document File</th>
+              <th class="text-start">Comment</th>
+              <th class="text-start"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-none" *ngFor="let itemControl of nodeForm.controls; let i = index">
+              <td class="align-center text-center pt-4">{{i+1}}</td>
+
+              <td class="align-center text-center">
+                <app-input type="area" rows="1" placeholder="Document Name" [formControl]="itemControl.get('documentName')" />
+              </td>
+
+              <td class="align-center text-center">
+                <app-input type="area" rows="1" placeholder="Drawing No" [formControl]="itemControl.get('drawingNo')"/>
+              </td>
+
+              <td class="align-center text-center">
+                <input
+                type="file"
+                class="file-input file-input-bordered file-input-primary w-full" />
+              </td>
+
+              <td class="align-center text-center">
+                <app-input type="area" rows="1" placeholder="Comment" [formControl]="itemControl.get('comment')"/>
+              </td>
+
+              <td class="align-center text-center">
+                <div class="flex items-center justify-center gap-2">
+                    <app-icon-button icon="delete" (outClick)="onDeleteDrawing(i)" />
+                    <app-icon-button icon="add" (outClick)="onAddDrawing(i)" />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</div>

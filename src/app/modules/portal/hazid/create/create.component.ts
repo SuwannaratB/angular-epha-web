@@ -15,9 +15,11 @@ export class CreateComponent implements OnInit {
   phaNo: string = 'HAZID-2024-00000XX';
   currentTab: number = 2;
   sessionForm: FormBuilder | any;
+  nodeForm: FormBuilder | any;
   
   ngOnInit(): void {
     this.initSessionForm();
+    this.initNodeForm();
   }
 
   initSessionForm(): void {
@@ -29,6 +31,17 @@ export class CreateComponent implements OnInit {
         startDateMin: [''],
         endDateHr: [''],
         endDateMin: [''],
+      }),
+    ])
+  }
+
+  initNodeForm(): void {
+    this.nodeForm = this.fb.array([
+      this.fb.group({ 
+        documentName: [''], 
+        documentFile: [''],
+        drawingNo: [''],
+        comment: [''],
       }),
     ])
   }

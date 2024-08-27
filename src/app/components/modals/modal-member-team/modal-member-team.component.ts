@@ -32,7 +32,7 @@ export class ModalMemberTeamComponent implements OnInit {
 
   initSearchForm(): void{
     this.searchForm = this.fb.group({
-      indicator: ['enmc'],
+      indicator: [''],
     })
   }
 

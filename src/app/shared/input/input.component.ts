@@ -15,7 +15,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 })
 export class InputComponent implements ControlValueAccessor, OnInit {
   @Input() type: string = 'text';
-  @Input() rows: number = 4;
+  @Input() rows: string = '4';
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
   @Input() inputValue: string = '';

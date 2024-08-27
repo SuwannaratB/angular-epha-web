@@ -10,6 +10,7 @@ import { ComponentsModule } from '../../../components/components.module';
 import { TabGeneralComponent } from './create/tab-general/tab-general.component';
 import { TabSessionComponent } from './create/tab-session/tab-session.component';
 import { TabWorksheetComponent } from './create/tab-worksheet/tab-worksheet.component';
+import { TabNodeComponent } from './create/tab-node/tab-node.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { TabWorksheetComponent } from './create/tab-worksheet/tab-worksheet.comp
     CreateComponent,
     TabGeneralComponent,
     TabSessionComponent,
-    TabWorksheetComponent
+    TabWorksheetComponent,
+    TabNodeComponent
   ],
   imports: [
     CommonModule,

@@ -22,7 +22,18 @@ export class TabSessionComponent implements OnInit {
   }
 
   onDeleteSession(index: number) {
-    this.sessionForm.removeAt(index);
+    if(index != 0) 
+      return  this.sessionForm.removeAt(index);
+
+    const firstGroup = this.sessionForm.at(0) as FormGroup;
+    firstGroup.patchValue({
+      memberTeam: [],
+      meetingDate: '',
+      startDateHr: '',
+      startDateMin: '',
+      endDateHr: '',
+      endDateMin: '',
+    });
   }
 
   onCopyClick() {
