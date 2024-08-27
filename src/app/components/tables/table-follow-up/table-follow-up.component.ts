@@ -40,7 +40,6 @@ export class TableFollowUpComponent implements OnInit {
           },
           error: (err) => {
             this._loadingService.closeLoading();
-            alert('Error fetching data:')
           },
           complete: () => {
             this._loadingService.closeLoading();
@@ -49,7 +48,6 @@ export class TableFollowUpComponent implements OnInit {
       },
       error: () => {
         this._loadingService.closeLoading();
-        alert('Error showLoading')
       }
     });
   }

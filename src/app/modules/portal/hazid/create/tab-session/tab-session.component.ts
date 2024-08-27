@@ -1,20 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalMemberTeamComponent } from '../../../../../components/modals/modal-member-team/modal-member-team.component';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-tab-session',
   templateUrl: './tab-session.component.html',
   styleUrl: './tab-session.component.scss'
 })
-export class TabSessionComponent {
+export class TabSessionComponent implements OnInit {
+
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private fb:FormBuilder
   ) {}
 
-  onDeleteClick() {
-    console.log('Delete button clicked');
-    // เขียนโค้ดเพื่อจัดการกับการลบ
+  @Input() sessionForm: FormGroup| any
+
+  ngOnInit(): void {
+
+  }
+
+  onDeleteSession(index: number) {
+    this.sessionForm.removeAt(index);
   }
 
   onCopyClick() {
@@ -22,15 +30,23 @@ export class TabSessionComponent {
     // เขียนโค้ดเพื่อจัดการกับการคัดลอก
   }
 
-  onAddClick() {
-    console.log('Add button clicked');
-    // เขียนโค้ดเพื่อจัดการกับการเพิ่ม
+  onAddSession(index: number) {
+    const newData = this.fb.group({ 
+      memberTeam: [[]], 
+      meetingDate: [''],
+      startDateHr: [''],
+      startDateMin: [''],
+      endDateHr: [''],
+      endDateMin: [''],
+    });
+
+    this.sessionForm.insert(index + 1, newData);
   }
 
-  openDialog(): void {
+  openDialog(index: number): void {
     const dialogRef = this.dialog.open(ModalMemberTeamComponent, {
-      width: '80vw',
-      data: { /* ข้อมูลที่คุณต้องการส่งไปยังโมดัล */ }
+      panelClass: 'member-dialog',
+      data: this.sessionForm.value[index].memberTeam
     });
 
     dialogRef.afterClosed().subscribe(result => {

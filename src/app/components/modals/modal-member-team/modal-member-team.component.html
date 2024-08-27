@@ -6,9 +6,9 @@
     <hr class="">
     <div class="w-72">
         <label class="text-md font-medium pl-1" for="">Indicator</label>
-        <app-input icon="search" placeholder="Indicator" />
+        <app-input icon="search" placeholder="Indicator" [formControl]="searchForm.get('indicator')" (outChange)="onChangeSearch($event)" />
     </div>
-    <div class="">
+    <div class="h-[40vh] overflow-auto">
         <table class="table text-md">
           <!-- head -->
           <thead>
@@ -20,11 +20,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="border-gray-300" *ngFor="let item of dataEmployee">
-                <td class="text-center">{{item.employee_displayname}}</td>
+            <tr class="border-gray-300 hover:bg-gray-100 cursor-pointer" *ngFor="let item of dataEmployee" (click)="onAddMember(item)">
+                <td class="text-center">
+                  <div class="flex items-center gap-4">
+                    <button class="flex items-center justify-center p-1 bg-[#f3f4f6] min-h-[26px] text-primary border-primary border-[1px] rounded-md">
+                        <i class="fa-solid fa-user-plus text-md"></i>
+                    </button>
+                    <i class="fa-solid fa-user text-gray-500"></i>
+                    {{item.employee_displayname}}
+                  </div>
+                </td>
+
                 <td class="text-center">{{item.employee_position}}</td>
+
                 <td class="text-center">{{item.employee_position}}-{{item.employee_name}}</td>
+
                 <td class="text-center">{{item.employee_email}}</td>
+            </tr>
+            <tr class="border-gray-300" *ngIf="!dataEmployee.length">
+              <td colspan="4" class="text-center">No data available</td>
             </tr>
           </tbody>
         </table>

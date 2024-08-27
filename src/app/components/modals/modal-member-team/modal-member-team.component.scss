@@ -1,16 +1,25 @@
 
-
-::ng-deep .mat-mdc-dialog-surface {
+::ng-deep .cdk-overlay-pane.member-dialog {
+    max-width: 60vw !important;
+    min-width: 60vw !important;
+    max-height: 60vh !important;
+    min-height: 60vh !important;
+    width: 100% !important;
+  }
+  
+  ::ng-deep .member-dialog .mat-mdc-dialog-surface {
     background: #fff !important;
     border-radius: 8px !important;
     padding: 16px !important; 
+    width: 100% !important; // กำหนดความกว้างเต็ม parent
   }
   
-  ::ng-deep .cdk-overlay-pane.mat-mdc-dialog-panel {
-    display: flex;
-    justify-content: center;
-    min-width: 94% !important;
-  }
+  .table :where(th, td) {
+    padding-top: 4px;
+    padding-bottom: 4px;
+
+}
+
 
   
   

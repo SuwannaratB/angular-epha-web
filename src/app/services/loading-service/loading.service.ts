@@ -16,7 +16,7 @@ export class LoadingService {
   showLoading(): Observable<any> {
     if (!this.dialogRef) {
       this.dialogRef = this.dialog.open(LoadingComponent, {
-        width: '250px',
+        panelClass: 'loading-dialog',
         disableClose: true 
       });
     }

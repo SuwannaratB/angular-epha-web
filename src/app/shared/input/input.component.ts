@@ -20,7 +20,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   @Input() placeholder: string = '';
   @Input() inputValue: string = '';
 
-  @Output() inputValueChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() outChange: EventEmitter<string> = new EventEmitter<string>();
 
   @Input() label: string = '';
   @Input() id: string = '';
@@ -46,7 +46,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
 
   onValueChange(value: string): void {
     this.inputValue = value;
-    this.inputValueChange.emit(value);
+    this.outChange.emit(value);
   }
 
   writeValue(obj: any): void {

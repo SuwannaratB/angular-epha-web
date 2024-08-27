@@ -11,7 +11,21 @@
     animation: spin-slow 3s linear infinite;
 }
 
-::ng-deep .mat-mdc-dialog-surface {
+// ::ng-deep .mat-mdc-dialog-surface {
+//     background: #fff !important;
+//     border-radius: 18px !important;
+//   }
+
+::ng-deep .cdk-overlay-pane.loading-dialog {
+    max-width: 250px !important;
+    min-width: 250px !important;
+    width: 100% !important;
+    max-height: 120px !important;
+    min-height: 120px !important;
+  }
+  
+
+::ng-deep .loading-dialog .mat-mdc-dialog-surface {
     background: #fff !important;
     border-radius: 18px !important;
   }

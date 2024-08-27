@@ -10,36 +10,40 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="border-gray-300">
-              <td class="text-center">1</td>
-              <td class="text-center">
+            <tr class="border-gray-300" *ngFor="let itemControl of sessionForm.controls; let i = index">
+              <td class="align-top text-center pt-4">{{i+1}}</td>
+              <td class="align-top text-center">
                 <div class="w-full flex items-center justify-center gap-4">
                     <button class="flex items-center gap-2 font-semibold border-[1px] border-[#2445fc] text-[#2445fc] bg-gray-100 py-[6px] px-6 rounded-md" 
-                        (click)="openDialog()">
+                        (click)="openDialog(i)">
                         <i class="fa-regular fa-address-book text-lg"></i>
                         Add Member Team/Attendees
                     </button>
-                    <button class="flex items-center gap-2 font-semibold border-[1px] border-[#2445fc] text-[#2445fc] bg-gray-100 py-[6px] px-6 rounded-md" 
+                    <!-- <button class="flex items-center gap-2 font-semibold border-[1px] border-[#2445fc] text-[#2445fc] bg-gray-100 py-[6px] px-6 rounded-md" 
                         (click)="openDialog()">
                         <i class="fa-regular fa-address-book text-lg"></i>
                         Add Assessment Team Leader
-                    </button>
+                    </button> -->
+                </div>
+                <div class="mt-2">
+                  <p *ngFor="let itemMember of itemControl.value.memberTeam">
+                    {{itemMember.employee_displayname}}
+                  </p>
                 </div>
               </td>
-              <td class="text-center">
+              <td class="align-top text-center">
                 <div class="w-full flex items-center justify-between">
                     <div class="flex items-center justify-center gap-2">
-                        <div class="w-52"><app-input type="date" /></div>
+                        <div class="w-52"><app-input type="date" [formControl]="itemControl.get('meetingDate')" /></div>
                         <p>Time</p>
-                        <div class="w-52"><app-input type="time" /></div>
+                        <div class="w-52"><app-input type="time" [formControl]="itemControl.get('startDateHr')"/></div>
                         <p>To</p>
-                        <div class="w-52"><app-input type="time" /></div>
+                        <div class="w-52"><app-input type="time" [formControl]="itemControl.get('endDateHr')"/></div>
                     </div>
-
                     <div class="flex items-center justify-center gap-2">
-                        <app-icon-button icon="delete" (outClick)="onDeleteClick()" />
+                        <app-icon-button icon="delete" (outClick)="onDeleteSession(i)" />
                         <app-icon-button icon="copy" (outClick)="onCopyClick()" />
-                        <app-icon-button icon="add" (outClick)="onAddClick()" />
+                        <app-icon-button icon="add" (outClick)="onAddSession(i)" />
                     </div>
                 </div>
               </td>

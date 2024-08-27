@@ -30,7 +30,7 @@ export class TabSessionComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ModalMemberTeamComponent, {
-      // width: '250px',
+      panelClass: 'member-dialog',
       data: { /* ข้อมูลที่คุณต้องการส่งไปยังโมดัล */ }
     });
 

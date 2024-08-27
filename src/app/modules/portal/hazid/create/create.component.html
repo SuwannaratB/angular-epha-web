@@ -32,7 +32,7 @@
                     'text-white': currentTab == 2, 
                     'text-primary': currentTab != 2}"/>
             <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
-                <app-tab-session />
+                <app-tab-session [sessionForm]="sessionForm" />
             </div>
             <input 
                 type="radio" 
