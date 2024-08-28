@@ -13,12 +13,14 @@ export class CreateComponent implements OnInit {
   ){}
 
   phaNo: string = 'HAZID-2024-00000XX';
-  currentTab: number = 2;
+  currentTab: number = 3;
   sessionForm: FormBuilder | any;
+  drawingForm: FormBuilder | any;
   nodeForm: FormBuilder | any;
   
   ngOnInit(): void {
     this.initSessionForm();
+    this.initDrawingForm();
     this.initNodeForm();
   }
 
@@ -35,13 +37,26 @@ export class CreateComponent implements OnInit {
     ])
   }
 
-  initNodeForm(): void {
-    this.nodeForm = this.fb.array([
+  initDrawingForm(): void {
+    this.drawingForm = this.fb.array([
       this.fb.group({ 
         documentName: [''], 
         documentFile: [''],
         drawingNo: [''],
         comment: [''],
+      }),
+    ])
+  }
+
+  initNodeForm(): void {
+    this.nodeForm = this.fb.array([
+      this.fb.group({ 
+        node: [''], 
+        designIntent: [''],
+        designCondition: [''],
+        operatingCondition: [''],
+        nodeBroundDary: [''],
+        drawing: [''],
       }),
     ])
   }

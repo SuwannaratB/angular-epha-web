@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{html,ts}",
+    "./src/**/*.{html,ts,scss}", // เพิ่ม .scss หากใช้ในโปรเจค
   ],
   theme: {
     extend: {
@@ -31,4 +31,7 @@ module.exports = {
   plugins: [
     require('daisyui'),
   ],
+  daisyui: {
+    themes: ["light"],
+  },
 }

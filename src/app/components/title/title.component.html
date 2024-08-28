@@ -1,1 +1,8 @@
-<div class="font-medium"><i class="fa-solid fa-window-minimize text-primary rotate-90"></i>{{title}}</div>
+<div class="flex items-center font-medium">
+    <i class="fa-solid fa-window-minimize text-primary rotate-90"></i>
+    {{title}}
+    <div *ngIf="guideWord" class="pl-6 text-sm text-primary cursor-pointer">
+        <i class="fa-solid fa-pen-to-square"></i>
+        {{guideWord}}
+    </div>
+</div>

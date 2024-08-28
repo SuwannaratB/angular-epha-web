@@ -1,19 +1,19 @@
 <div class="flex flex-col gap-2 rounded-lg border-[1px] border-gray-200 p-6">
-    <app-title title="Drawing" />
+    <app-title title="Drawing & Reference" />
     <div class="overflow-x-auto">
         <table class="table text-md">
           <thead>
             <tr class="uppercase text-gray-700 border-gray-300">
-              <th class="text-center">No</th>
-              <th class="text-start">Document Name</th>
-              <th class="text-start">Drawing No</th>
-              <th class="text-start">Document File</th>
-              <th class="text-start">Comment</th>
+              <th class="text-center w-[20px]">No</th>
+              <th class="text-start w-[20%]">Document Name</th>
+              <th class="text-start w-[20%]">Drawing No</th>
+              <th class="text-start w-[20%]">Document File</th>
+              <th class="text-start w-[20%]">Comment</th>
               <th class="text-start"></th>
             </tr>
           </thead>
           <tbody>
-            <tr class="border-none" *ngFor="let itemControl of nodeForm.controls; let i = index">
+            <tr class="border-none" *ngFor="let itemControl of drawingForm.controls; let i = index">
               <td class="align-center text-center pt-4">{{i+1}}</td>
 
               <td class="align-center text-center">
@@ -25,9 +25,25 @@
               </td>
 
               <td class="align-center text-center">
-                <input
-                type="file"
-                class="file-input file-input-bordered file-input-primary w-full" />
+                <div class="w-full min-w-40">
+                    <label class="input input-bordered rounded-md p-0 flex items-center gap-2 bg-white h-11 border-primary cursor-pointer overflow-hidden" style="outline: none;">
+                      <div class="bg-primary min-w-12 h-full flex items-center justify-center">
+                        <i class="fa-solid fa-arrow-up-from-bracket text-white"></i>
+                      </div>
+                      <p class="text-md text-primary font-medium tracking-wide">
+                        {{
+                          selectedFile 
+                          ? selectedFile.name
+                          : 'Upload File(Word, Excel, PDF, Image)'
+                        }}
+                      </p>
+                      <input class="hidden"
+                        type="file"
+                        id="input_file"
+                        (change)="onFileSelected($event)"
+                        />
+                    </label>
+                </div>
               </td>
 
               <td class="align-center text-center">
@@ -43,5 +59,91 @@
             </tr>
           </tbody>
         </table>
-      </div>
+    </div>
+</div>
+
+<br>
+
+<div class="flex flex-col gap-2 rounded-lg border-[1px] border-gray-200 p-6">
+    <app-title title="Node List" guideWord="Select Guide Words" />
+    <div class="overflow-visible">
+        <table class="table text-md ">
+          <thead>
+            <tr class="uppercase text-gray-700 border-gray-300">
+              <th class="text-center w-[20px]">No</th>
+              <th class="text-start">Node</th>
+              <th class="text-start">Design Intent</th>
+              <th class="text-start">Design Conditions</th>
+              <th class="text-start">Operating Conditions</th>
+              <th class="text-start">Node Boundary</th>
+              <th class="text-start">Drawing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-none" *ngFor="let itemControl of nodeForm.controls; let i = index">
+
+              <td class="align-center text-center">
+                <div class="flex flex-col">
+                  <p>{{i+1}}</p>
+                  <button class="hover:bg-slate-100 rounded-md" (click)="onAddNode(i)">
+                    <i class="fa-solid fa-circle-plus text-success p-1"></i>
+                  </button>
+                  <div class="dropdown dropdown-start">
+                    <button class="relative hover:bg-slate-100 rounded-md" tabindex="0">
+                      <i class="fa-solid fa-gear text-primary p-1" role="button"></i>
+                    </button>
+                    <ul tabindex="0" class="mt-3 z-[1] p-0 pt-1 shadow menu menu-sm dropdown-content font-light text-gray-500 bg-white border-[1px] border-gray-300 rounded-md w-52">
+                      <li class="py-2">
+                        <a class="text-success rounded-none p-2 pl-4" (click)="onCopyNode(i, itemControl)">
+                          <i class="fa-solid fa-copy"></i>
+                          Copy
+                        </a>
+                      </li>
+                      <hr>
+                      <li class="py-2">
+                        <a class="text-danger rounded-none p-2 pl-4" (click)="onDeleteNode(i)">
+                          <i class="fa-solid fa-circle-xmark"></i>
+                          Remove
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+
+              <td class="align-center text-center">
+                <app-input type="area" rows="1" placeholder="Document Name" [formControl]="itemControl.get('node')" />
+              </td>
+
+              <td class="align-center text-center">
+                <app-input type="area" rows="1" placeholder="Drawing No" [formControl]="itemControl.get('designIntent')"/>
+              </td>
+
+              <td class="align-center text-center">
+                <app-input type="area" rows="1" placeholder="Comment" [formControl]="itemControl.get('designCondition')"/>
+              </td>
+
+              <td class="align-center text-center">
+                <app-input type="area" rows="1" placeholder="Comment" [formControl]="itemControl.get('operatingCondition')"/>
+              </td>
+              
+              <td class="align-center text-center">
+                <app-input type="area" rows="1" placeholder="Comment" [formControl]="itemControl.get('nodeBroundDary')"/>
+              </td>
+
+              <td class="align-center text-center">
+                <app-input type="area" rows="1" placeholder="Comment" [formControl]="itemControl.get('drawing')"/>
+              </td>
+
+              <td class="align-center text-center">
+                <div class="flex items-center justify-center gap-2">
+                    <app-icon-button icon="delete" (outClick)="onDeleteNode(i)" />
+                    <app-icon-button icon="add" (outClick)="onAddNode(i)" />
+                </div>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+    </div>
 </div>
