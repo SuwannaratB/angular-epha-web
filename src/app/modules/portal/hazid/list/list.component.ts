@@ -8,11 +8,13 @@ import { Location } from '@angular/common';
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
+
   constructor(
     private _route: Router,
     private _location: Location,
   ){}
 
+  subSoftware: string = 'hazop';
   isLoading: boolean = true;
   currentTab: number = 1;
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FollowUpService } from '../../../services/follow-up-service/follow-up.service';
 import { FollowUp } from '../../../models/follow-up-model/follow-up.model';
 import { LoadingService } from '../../../services/loading-service/loading.service';
@@ -16,11 +16,20 @@ export class TableFollowUpComponent implements OnInit {
   ){}
 
   @Input() subSoftware: string = '';
+  @Input() search: string = '';
   
-  dataFollowUp: any[] = []
+  dataFollowUp: FollowUp[] = [];
+  filteredDataFollowUp: FollowUp[] = [];
 
   ngOnInit(): void {
     this.fetchFollowUp();
+  }
+
+  // ใช้ ngOnChanges เพื่อตรวจสอบการเปลี่ยนแปลงของ @Input
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['search']) {
+      this.filterData();
+    }
   }
 
   fetchFollowUp(): void{
@@ -35,7 +44,8 @@ export class TableFollowUpComponent implements OnInit {
         this._followUpService.get(data).subscribe({
           next: (res) => {
             if (res.header) {
-              this.dataFollowUp = res.header;
+              this.dataFollowUp = res.header.sort((a, b) => b.pha_seq - a.pha_seq)
+              this.filterData();
             }
           },
           error: (err) => {
@@ -50,5 +60,16 @@ export class TableFollowUpComponent implements OnInit {
         this._loadingService.closeLoading();
       }
     });
+  }
+
+  filterData(): void {
+    if (this.search) {
+      this.filteredDataFollowUp = this.dataFollowUp.filter(_item => 
+        _item.pha_request_name && _item.pha_request_name.toLowerCase().includes(this.search.toLowerCase())
+      );
+    } else {
+      this.filteredDataFollowUp = this.dataFollowUp;
+    }
+    console.log(this.filteredDataFollowUp)
   }
 }

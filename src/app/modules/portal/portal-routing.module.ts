@@ -9,6 +9,7 @@ const routes: Routes = [
       { path: 'hazid', loadChildren: () => import('./hazid/hazid.module').then(m => m.HazidModule) },
       { path: 'lopa', loadChildren: () => import('./lopa/lopa.module').then(m => m.LopaModule) },
       { path: 'psa', loadChildren: () => import('./psa/psa.module').then(m => m.PsaModule) },
+      { path: 'hra', loadChildren: () => import('./hra/hra.module').then(m => m.HraModule) },
     ]
    },
 ];

@@ -17,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataFollowUp">
+        <tr *ngFor="let item of filteredDataFollowUp">
             <td class="text-center border border-gray-300 text-primary"><span class="link">See Action Items</span></td>
             <td class="text-center border border-gray-300 uppercase">{{item.pha_sub_software}}</td>
             <td class="text-center border border-gray-300 uppercase">{{item.pha_status_name}}</td>
@@ -28,7 +28,7 @@
             <td class="text-center border border-gray-300 text-success">{{item.status_closed}}</td>
             <td class="text-center border border-gray-300 text-primary"><span  class="link">See Details</span></td>
         </tr>
-        <tr *ngIf="!dataFollowUp.length">
+        <tr *ngIf="!filteredDataFollowUp.length">
             <td colspan="9" class="text-center border border-gray-300">No data available</td>
         </tr>
       </tbody>

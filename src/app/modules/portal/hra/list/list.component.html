@@ -3,7 +3,10 @@
     <app-header-follow-up (outBack)="onBack()" (outCreate)="onCreate()"/>
     <div class="flex flex-col gap-2 rounded-lg border-[1px] border-gray-200 bg-[#eff2f6] shadow-sm p-6">
         <div class="w-64 mb-4">
-            <app-input icon="search" placeholder="Search Document Number" />
+            <app-input icon="search" 
+                placeholder="Search Document Number" 
+                (outChange)="onChangeSearch($event)"
+                [formControl]="filterForm.get('search')" />
         </div>
         <div role="tablist" class="tabs tabs-lifted tabs-md">
             <input 
@@ -18,7 +21,7 @@
                     'text-white': currentTab == 1, 
                     'text-primary': currentTab != 1}"/>
             <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
-                <app-table-follow-up [subSoftware]="subSoftware" />
+                <app-table-follow-up [subSoftware]="subSoftware" [search]="filterForm.value.search" />
             </div>
             <input
                 type="radio"

@@ -34,7 +34,7 @@ export const dataHome = [
     {
         img: "/images/home-images/hra@3x.png", 
         title:"HRA",
-        path: "/hra",
+        path: "hra",
         link: true,
         disable: false,
     },

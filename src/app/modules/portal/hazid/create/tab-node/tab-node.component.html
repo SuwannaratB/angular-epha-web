@@ -88,7 +88,10 @@
                   <button class="hover:bg-slate-100 rounded-md" (click)="onAddNode(i)">
                     <i class="fa-solid fa-circle-plus text-success p-1"></i>
                   </button>
-                  <div class="dropdown dropdown-start">
+                  <app-options 
+                    (outCopy)="onCopyNode(i, itemControl)"
+                    (outDelete)="onDeleteNode(i)"/>
+                  <!-- <div class="dropdown dropdown-start">
                     <button class="relative hover:bg-slate-100 rounded-md" tabindex="0">
                       <i class="fa-solid fa-gear text-primary p-1" role="button"></i>
                     </button>
@@ -107,7 +110,7 @@
                         </a>
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
               </td>
 

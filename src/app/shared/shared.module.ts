@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SelectComponent } from './select/select.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
 import { ButtonComponent } from './button/button.component';
+import { OptionsComponent } from './options/options.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ButtonComponent } from './button/button.component';
     InputComponent,
     SelectComponent,
     IconButtonComponent,
-    ButtonComponent
+    ButtonComponent,
+    OptionsComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { ButtonComponent } from './button/button.component';
     InputComponent,
     SelectComponent,
     IconButtonComponent,
-    ButtonComponent
+    ButtonComponent,
+    OptionsComponent
   ]
 })
 export class SharedModule { }
