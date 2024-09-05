@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastService } from 'angular-toastify';
-import { Account } from '../../models/account/account.model';
+import { Account } from '../../core/models/account/account.model';
 
 @Component({
   selector: 'app-navbar',

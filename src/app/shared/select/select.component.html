@@ -7,13 +7,14 @@
   </select>
 </div> -->
 
-<label class="form-control w-full min-w-40" >
+<label class="form-control w-full" >
   <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
     <select class="select select-bordered py-0 min-h-0 h-9 text-md bg-white border-gray-300" 
       [formControl]="formControl" 
+      (change)="onSelectionChange($event)"
       [name]="name"
       style="outline: none;"> 
       <option value="null" disabled selected>{{placeholder}}</option>
-      <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+      <option *ngFor="let option of filteredOptions" [value]="option.id">{{ option.name }}</option>
     </select>
 </label>

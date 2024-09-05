@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { FollowUpService } from '../../../services/follow-up-service/follow-up.service';
-import { FollowUp } from '../../../models/follow-up-model/follow-up.model';
-import { LoadingService } from '../../../services/loading-service/loading.service';
+import { FollowUp } from '../../../core/models/follow-up-model/follow-up.model';
+import { LoadingService } from '../../../core/services/loading-service/loading.service';
+import { FollowUpService } from '../../../core/services/follow-up-service/follow-up.service';
 
 @Component({
   selector: 'app-table-follow-up',

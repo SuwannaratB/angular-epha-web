@@ -1,6 +1,4 @@
-import { environment } from "../../environments/environment"
-
-
+import { environment } from "../../../environments/environment";
 
 export const dataHome = [
     {

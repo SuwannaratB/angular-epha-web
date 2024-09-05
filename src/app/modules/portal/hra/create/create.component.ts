@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { LoadingService } from '../../../../services/loading-service/loading.service';
-import { HraService } from '../../../../services/hra-service/hra.service';
+import { FormArray, FormBuilder } from '@angular/forms';
+import { HraRes } from '../../../../core/models/hra-model/hra-res.model';
+import { HraService } from '../../../../core/services/hra-service/hra.service';
+import { LoadingService } from '../../../../core/services/loading-service/loading.service';
+import { Header } from '../../../../core/models/header.model';
+import { HraSaveReq } from '../../../../core/models/hra-model/hra-save-req.model';
+import { HraGeneral } from '../../../../core/models/hra-model/hra-general.model';
+import { HraSession } from '../../../../core/models/hra-model/hra-session.model';
 
 @Component({
   selector: 'app-create',
@@ -18,14 +23,22 @@ export class CreateComponent implements OnInit {
 
   phaNo: string = 'HRA-2024-00000XX';
   currentTab: number = 1;
+  isLoading: boolean = true;
+  // Form Groups
+  generalForm: FormBuilder | any;
   sessionForm: FormBuilder | any;
   drawingForm: FormBuilder | any;
   nodeForm: FormBuilder | any;
+  // Master
+  departmentList: any[] = [];
+  sectionList: any[] = [];
+  companyList: any[] = [];
+  areaList: any[] = [];
+  apuList: any[] = [];
+  header: Header | undefined;
   
   ngOnInit(): void {
-    this.initSessionForm();
-    this.initDrawingForm();
-    this.initNodeForm();
+    this.initFormGroup();
     this.fetchHRA();
   }
 
@@ -33,14 +46,17 @@ export class CreateComponent implements OnInit {
     const data = {
       sub_software: "hra",
       user_name: "ZKULUWAT",
-      token_doc: "2621",
-      type_doc: "edit"
-  }
+      token_doc: "",
+      type_doc: "create"
+    }
     this.loadingService.showLoading().subscribe({
       next: () => {
         this.hraService.getHra(data).subscribe({
           next: (value) => {
-            console.log(value);
+            this.setGeneralForm(value.general);
+            this.setSessionForm(value.session);
+            this.setMaster(value);
+            this.isLoading = false;
           },
           complete: () => {
             this.loadingService.closeLoading();
@@ -51,46 +67,82 @@ export class CreateComponent implements OnInit {
         })
       },
       error: () => {
-        this.loadingService.closeLoading()
+        this.loadingService.closeLoading();
       }
     })
   }
-
-  initSessionForm(): void {
-    this.sessionForm = this.fb.array([
-      this.fb.group({ 
-        memberTeam: [[]], 
-        meetingDate: [''],
-        startDateHr: [''],
-        startDateMin: [''],
-        endDateHr: [''],
-        endDateMin: [''],
-      }),
-    ])
+  
+  initFormGroup(): void {
+    this.generalForm = this.fb.array([]);
+    this.sessionForm = this.fb.array([]);
+    this.drawingForm = this.fb.array([]);
+  }
+  
+  setGeneralForm(valueGeneral: HraGeneral[]): void {
+    this.generalForm.clear();
+    valueGeneral.forEach(data => {
+      this.generalForm.push(this.fb.group({
+        ...data,
+        id_company: [1]
+      }));
+    });
+    console.log('general form ==> ', this.generalForm.value);
+  }
+  
+  setSessionForm(valueSession: HraSession[]): void {
+    this.sessionForm.clear(); 
+    valueSession.forEach(data => {
+      this.sessionForm.push(this.fb.group({
+       ...data,
+       member_team: [[]],// ตอน save ไม่ต้องส่ง key นี้ไป
+      }));
+    });
+    console.log('session form ==> ',this.sessionForm.value)
   }
 
-  initDrawingForm(): void {
-    this.drawingForm = this.fb.array([
-      this.fb.group({ 
-        documentName: [''], 
-        documentFile: [''],
-        drawingNo: [''],
-        comment: [''],
-      }),
-    ])
+  // setDrawingForm(valueDrawing: HraSession[]): void {
+  //   this.drawingForm.clear(); 
+  //   valueSession.forEach(data => {
+  //     this.sessionForm.push(this.fb.group({
+  //      ...data
+  //     }));
+  //   });
+  //   console.log('session form ==> ',this.sessionForm.value)
+  // }
+
+  setMaster(value: HraRes): void {
+    this.departmentList = value.departments.filter(_item => _item.id);
+    this.sectionList = value.sections.filter(_item => _item.id);
+    this.companyList = value.company.filter(_item => _item.id);
+    this.areaList = value.unit_no.filter(_item => _item.id);
+    this.apuList = value.apu.filter(_item => _item.id);
+    this.header = value.header[0]
   }
 
-  initNodeForm(): void {
-    this.nodeForm = this.fb.array([
-      this.fb.group({ 
-        node: [''], 
-        designIntent: [''],
-        designCondition: [''],
-        operatingCondition: [''],
-        nodeBroundDary: [''],
-        drawing: [''],
-      }),
-    ])
+  setDataSave(): HraSaveReq {
+    const data  = {
+      flow_action: 'save',
+      token_doc: this.header?.seq?.toString(),
+      pha_status: this.header?.pha_status.toString(),
+      pha_version: this.header?.pha_version.toString(),
+      action_part: '1',
+      user_name: this.header?.request_user_name.toString(),
+      json_header: JSON.stringify([this.header]),
+      json_general: JSON.stringify([this.generalForm.value]),
+      json_session :  '',
+      json_memberteam :  '',
+      json_approver :  '',
+      json_relatedpeople_outsider :  '',
+      json_drawing :  '',
+      json_subareas :  '',
+      json_hazard :  '',
+      json_tasks :  '',
+      json_descriptions :  '',
+      json_workers :  '',
+      json_worksheet :  '',
+      json_recommendations :  '',
+    }
+    return  data as HraSaveReq
   }
 
   toggleTabs(id:number): void{
@@ -102,7 +154,26 @@ export class CreateComponent implements OnInit {
   }
 
   onSave(): void{
-    console.log('onSave')
+    this.loadingService.showLoading().subscribe({
+      next: () => {
+        // console.log(this.generalForm)
+        const dataSave = this.setDataSave();
+        this.hraService.setHra(dataSave).subscribe({
+          next: (value) => {
+            // console.log(value);
+          },
+          complete: () => {
+            this.loadingService.closeLoading();
+          },
+          error: () => {
+            this.loadingService.closeLoading();
+          }
+        })
+      },
+      error: () => {
+        this.loadingService.closeLoading();
+      }
+    })
     console.log(this.sessionForm.value)
   }
 

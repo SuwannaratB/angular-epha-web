@@ -14,6 +14,7 @@ import { TabManageRecommendationsComponent } from './create/tab-manage-recommend
 import { TabWorksheetComponent } from './create/tab-worksheet/tab-worksheet.component';
 import { TabNameListComponent } from './create/tab-name-list/tab-name-list.component';
 import { TabReportComponent } from './create/tab-report/tab-report.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { TabReportComponent } from './create/tab-report/tab-report.component';
     CommonModule,
     HraRoutingModule,
     SharedModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ]
 })
 export class HraModule { }

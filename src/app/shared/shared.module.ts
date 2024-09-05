@@ -7,6 +7,7 @@ import { SelectComponent } from './select/select.component';
 import { IconButtonComponent } from './icon-button/icon-button.component';
 import { ButtonComponent } from './button/button.component';
 import { OptionsComponent } from './options/options.component';
+import { MemberButtonComponent } from './member-button/member-button.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { OptionsComponent } from './options/options.component';
     SelectComponent,
     IconButtonComponent,
     ButtonComponent,
-    OptionsComponent
+    OptionsComponent,
+    MemberButtonComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { OptionsComponent } from './options/options.component';
     SelectComponent,
     IconButtonComponent,
     ButtonComponent,
-    OptionsComponent
+    OptionsComponent,
+    MemberButtonComponent
   ]
 })
 export class SharedModule { }

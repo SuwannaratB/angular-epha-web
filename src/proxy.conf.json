@@ -1,0 +1,12 @@
+{
+    "/domainProxy": {
+      "target": "https://qas-epha.thaioilgroup.com/service/api",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/domainProxy": ""
+      }
+    }
+  }
+  

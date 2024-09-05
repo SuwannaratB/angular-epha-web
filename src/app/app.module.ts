@@ -3,10 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
 import { ToastService, AngularToastifyModule } from 'angular-toastify';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; 
+import { Interceptor } from './core/interceptors/interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,19 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     BrowserModule,
     AppRoutingModule,
     ComponentsModule,
-    AngularToastifyModule
+    HttpClientModule,
+    AngularToastifyModule,
   ],
   providers: [
-    provideHttpClient(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    },
     ToastService,
-    provideAnimationsAsync()
+    // provideHttpClient(),
+    provideAnimationsAsync(),
+
   ],
   bootstrap: [AppComponent]
 })

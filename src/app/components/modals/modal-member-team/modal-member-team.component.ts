@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EmployeeService } from '../../../services/employee-service/employee.service';
-import { LoadingService } from '../../../services/loading-service/loading.service';
-import { Employee } from '../../../models/employee-model/employee.model';
+import { Employee } from '../../../core/models/employee-model/employee.model';
 import { FormBuilder } from '@angular/forms';
-import { EmployeeReq } from '../../../models/employee-model/employee-req.model';
+import { EmployeeReq } from '../../../core/models/employee-model/employee-req.model';
+import { EmployeeService } from '../../../core/services/employee-service/employee.service';
+import { LoadingService } from '../../../core/services/loading-service/loading.service';
 
 @Component({
   selector: 'app-modal-member-team',
@@ -26,7 +26,6 @@ export class ModalMemberTeamComponent implements OnInit {
 
   ngOnInit(): void {
     this.initSearchForm();
-    console.log(this.data)
     // this.fetchEmployee()
   }
 
@@ -73,7 +72,6 @@ export class ModalMemberTeamComponent implements OnInit {
 
   onAddMember(item: Employee): void{
     this.data.push(item)
-    console.log(item)
   }
 
   onClose(): void {

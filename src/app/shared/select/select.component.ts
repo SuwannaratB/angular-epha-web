@@ -16,12 +16,15 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 export class SelectComponent implements ControlValueAccessor{
 
   @Input() formControl: FormControl = new FormControl;
+  @Input() condition: string = '';
+  @Input() conditionTo: string = '';
   @Input() label: string = '';
   @Input() id: string = '';
   @Input() name: string = '';
   @Input() placeholder = ''//'Please Select'
-  @Input() options: { value: number, label: string }[] = [];
-  @Output() selectionChange = new EventEmitter<any>();
+  @Input() disable: boolean = false;
+  @Input() options: { id: number, name: string }[] = [];
+  @Output() outChange = new EventEmitter<any>();
   selectedValue: number = 0;
 
   value: number = 0;
@@ -41,12 +44,29 @@ export class SelectComponent implements ControlValueAccessor{
   }
 
   setDisabledState(isDisabled: boolean): void {
-    // Implement this method if you want to handle disabling of the component
+    // console.log(this.disable)
+    if (this.disable) {
+      this.formControl.disable();
+    } else {
+      this.formControl.enable();
+    }
+    // this.disable = isDisabled; 
   }
 
   onSelectionChange(event: any): void {
-    this.value = event.value;
+    this.value = event.target.value;
     this.onChange(this.value);
     this.onTouched();
+    this.outChange.emit(this.value);
   }
+
+  get filteredOptions() {
+    // if(this.label == 'company')console.log(this.condition+'---'+this.conditionTo)
+    if (!this.condition) {
+      return this.options;
+    }
+    return this.options.filter(option => (option as any)[this.condition] == this.conditionTo);
+  }
+  
+  
 }

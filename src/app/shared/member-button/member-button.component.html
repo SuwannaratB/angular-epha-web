@@ -1,0 +1,12 @@
+<section class="p">
+    <button class="flex items-center gap-2 font-semibold border-[1px] border-[#2445fc] text-[#2445fc] bg-gray-100 py-[6px] px-6 rounded-md" 
+        (click)="onClick()">
+        <i class="fa-regular fa-address-book text-lg"></i>
+        {{label}}
+    </button>
+    <div class="mt-2">
+      <p class="text-start pl-2" *ngFor="let itemMember of data">
+        {{itemMember.employee_displayname}}
+      </p>
+    </div>
+  </section>

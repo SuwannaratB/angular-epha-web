@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class TabGeneralComponent {
   options = [
-    { value: 1, label: 'one' },
-    { value: 2, label: 'two' },
-    { value: 3, label: 'three' },
+    { id: 1, name: 'one' },
+    { id: 2, name: 'two' },
+    { id: 3, name: 'three' },
   ]
 }
