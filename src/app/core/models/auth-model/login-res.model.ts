@@ -1,4 +1,4 @@
-export class LoginResponse {
+export class LoginRes {
     user_name: string;
     role_type: string;
     page: string;

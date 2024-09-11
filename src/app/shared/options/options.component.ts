@@ -7,12 +7,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class OptionsComponent {
   @Input() icon: string = '';
+  @Output() outAdd = new EventEmitter<void>();
   @Output() outCopy = new EventEmitter<void>();
   @Output() outDelete = new EventEmitter<void>();
+
+  onAdd() {
+    this.outAdd.emit(); // ส่ง Event เมื่อคลิกปุ่ม
+  }
 
   onCopy() {
     this.outCopy.emit(); // ส่ง Event เมื่อคลิกปุ่ม
   }
+
   onDelete() {
     this.outDelete.emit(); // ส่ง Event เมื่อคลิกปุ่ม
   }

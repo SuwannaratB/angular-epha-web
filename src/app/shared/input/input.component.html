@@ -2,7 +2,7 @@
     <input [type]="type" id="sharedInput" [ngModel]="inputValue" (ngModelChange)="onInputChange($event)" [placeholder]="placeholder" />
 </div> -->
 
-<div class="w-full min-w-40" *ngIf="type != 'area'">
+<div class="w-full" *ngIf="type != 'area'">
     <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
     <label class="input input-bordered flex items-center gap-2 bg-white h-9 border-gray-300" style="outline: none;">
         <mat-icon *ngIf="icon" class="text-[18px] pt-[3.5px]">{{icon}}</mat-icon>
@@ -22,7 +22,7 @@
     </small>
 </div>
 
-<div class="w-full min-w-40" *ngIf="type == 'area'" >
+<div class="w-full" *ngIf="type == 'area'" >
     <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
     <textarea  class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300" 
         id="message" 

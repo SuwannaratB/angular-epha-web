@@ -1,25 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from '../services/auth-service/auth.service';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  constructor(private authService: AuthService) {}
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {  
+    // Skip interceptor for a specific URL
+    // if (req.url === 'https://qas-epha.thaioilgroup.com/Login/Authentication') {
+    //   modifiedReq = req.clone({
+    //     setHeaders: {
+    //       'X-XSRF-TOKEN': token,
+    //     }
+    //   });
+    //   return next.handle(modifiedReq);
+    // }
+    const token = this.authService.getToken();
     let modifiedReq = req;
 
-    // Skip interceptor for a specific URL
-    if (req.url === 'https://qas-epha.thaioilgroup.com/Login/Authentication') {
-      return next.handle(req);
-    }
-
     if (!req.url.startsWith('/domainProxy')) {
-      modifiedReq = req.clone({
-        url: `/domainProxy${req.url}`  // Add /api prefix
-      });
+      if (token) {
+        modifiedReq = req.clone({
+          url: `/domainProxy${req.url}`,
+          setHeaders: {
+            'Authorization': `Bearer ${token}`,
+          }
+        });
+      } else {
+        modifiedReq = req.clone({
+          url: `/domainProxy${req.url}`
+        });
+      }
     }
-
-    // console.log('Intercepted Request:', modifiedReq); // Debugging in console
 
     return next.handle(modifiedReq);
   }

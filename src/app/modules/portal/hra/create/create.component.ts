@@ -22,13 +22,15 @@ export class CreateComponent implements OnInit {
   ){}
 
   phaNo: string = 'HRA-2024-00000XX';
-  currentTab: number = 1;
-  isLoading: boolean = true;
+  currentTab: number = 2;
+  isLoading: boolean = false;
+  // isLoading: boolean = true;
   // Form Groups
   generalForm: FormBuilder | any;
   sessionForm: FormBuilder | any;
   drawingForm: FormBuilder | any;
-  nodeForm: FormBuilder | any;
+  healthHazardForm: FormBuilder | any;
+  workerGroupForm: FormBuilder | any;
   // Master
   departmentList: any[] = [];
   sectionList: any[] = [];
@@ -39,6 +41,7 @@ export class CreateComponent implements OnInit {
   
   ngOnInit(): void {
     this.initFormGroup();
+    this.setHealthHazardForm();
     this.fetchHRA();
   }
 
@@ -76,6 +79,7 @@ export class CreateComponent implements OnInit {
     this.generalForm = this.fb.array([]);
     this.sessionForm = this.fb.array([]);
     this.drawingForm = this.fb.array([]);
+    this.healthHazardForm = this.fb.array([]);
   }
   
   setGeneralForm(valueGeneral: HraGeneral[]): void {
@@ -109,6 +113,44 @@ export class CreateComponent implements OnInit {
   //   });
   //   console.log('session form ==> ',this.sessionForm.value)
   // }
+
+  setHealthHazardForm(): void {
+    const moc = [
+      {
+        seq: 1,
+        id_sub_area: null,
+      }
+    ]
+    this.healthHazardForm.clear(); 
+    moc.forEach(data => {
+      this.healthHazardForm.push(this.fb.group({
+        ...data,
+        type_hazards: [[
+          {
+            seq: 11,
+          },
+          {
+            seq: 22,
+          },
+          {
+            seq: 22,
+          },
+          {
+            seq: 22,
+          },
+        ]],
+        health_hazards: [[
+          {
+            seq: 111,
+          },
+          {
+            seq: 222,
+          },
+        ]],
+      }));
+    });
+    console.log('health hazards form ==> ',this.healthHazardForm.value)
+  }
 
   setMaster(value: HraRes): void {
     this.departmentList = value.departments.filter(_item => _item.id);

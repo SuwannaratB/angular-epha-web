@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastService } from 'angular-toastify';
-import { Account } from '../../core/models/account/account.model';
+import { User } from '../../core/models/user/user';
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +15,7 @@ export class NavbarComponent implements OnInit{
     private _toastService: ToastService
   ){}
   
-  account: Account = {
-    username: '',
-    img: ''
-  }; 
+  user: User | undefined;
 
   ngOnInit(): void {
     this.isAccountLogin();
@@ -27,8 +24,8 @@ export class NavbarComponent implements OnInit{
   isAccountLogin():boolean {
     if (localStorage.getItem('account')) {
       const data = JSON.parse(localStorage.getItem('account')!)
-      this.account.username = data.username
-      this.account.img = data.img
+      this.user!.user_name = data.username
+      this.user!.user_img = data.img
       return true;
     }
     return false;

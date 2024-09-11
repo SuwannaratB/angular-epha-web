@@ -1,1 +1,55 @@
-<p>tab-health-hazards works!</p>
+<div class="flex flex-col gap-2 rounded-lg border-[1px] border-gray-200 p-6">
+    <app-title title="Health Risk Assessment" />
+    <div class="w-full">
+        <table class="table text-sm">
+            <thead>
+              <tr class="border text-gray-700">
+                  <th class="border text-center">Name of Sub Area</th>
+                  <th class="border text-center">Type of Hazards</th>
+                  <th class="border text-center">Health Hazrd or Risk Factor</th>
+                  <th class="border text-center w-[10%]">Health Effect Rating</th>
+                  <th class="border text-center">Manage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- row 1 -->
+              <tr class="border" *ngFor="let itemControl of healthHazardForm.controls; let i = index">
+                <td class="border align-top text-center">
+                    <div class="flex items-start gap-6">
+                        <div class="flex flex-col justify-center">
+                            {{ i+1 }}
+                            <app-options (outAdd)="onAddSubArea(i)" />
+                        </div>
+                        <div class="flex flex-col w-full gap-2">
+                            <app-select class="w-full"/>
+                            <app-input class="w-full" type="area" />
+                        </div>
+                    </div>
+                </td>
+                <td class="border align-top text-center p-0">
+                  <div class="flex items-center gap-6 border-b p-3" *ngFor="let itemTypeHazard of itemControl.value.type_hazards; let j = index">
+                    <div class="flex flex-col justify-center">
+                        {{ i+1 }}.{{ j+ 1 }}
+                        <app-options />
+                    </div>
+                    <app-select class="w-full" />
+                  </div>
+                </td>
+                <td class="border align-top text-center">
+                    <div class="flex items-center gap-6">
+                        <div class="flex flex-col justify-center">
+                            {{ i+1 }}.{{ i+ 1 }}.{{ i+ 1 }}
+                            <app-options />
+                        </div>
+                        <app-select class="w-full" />
+                    </div>
+                </td>
+                <td class="border align-top text-center">
+                  
+                </td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+  

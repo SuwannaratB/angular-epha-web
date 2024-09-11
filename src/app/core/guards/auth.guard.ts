@@ -1,11 +1,14 @@
 import { inject } from '@angular/core';
 import { CanActivateChildFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth-service/auth.service';
 
 export const authGuard: CanActivateChildFn = (childRoute, state) => {
-  console.log('Guard ...')
-  
+
   const router = inject(Router);
-  if (localStorage.getItem('account')) {
+  const authService = inject(AuthService);
+  const token = authService.getToken();
+
+  if (token) {
     return true;
   }
   router.navigate(['auth']);

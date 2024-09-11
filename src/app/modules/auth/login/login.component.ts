@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Account } from '../../../core/models/account/account.model';
+import { User } from '../../../core/models/user/user';
 import { ToastService } from 'angular-toastify';
-import { LoginService } from '../../../core/services/auth-service/login.service';
+import { AuthService } from '../../../core/services/auth-service/auth.service';
+import { LoadingService } from '../../../core/services/loading-service/loading.service';
+import { LoginRes } from '../../../core/models/auth-model/login-res.model';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +17,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private _loginService: LoginService,
+    private authService: AuthService,
+    private loadingService: LoadingService,
     private _toastService: ToastService
   ){}
 
-  account: Account = { username: '', img: '' }; 
+  user: User | undefined; 
   loginForm: FormGroup | any
   error:boolean = false;
 
@@ -35,36 +38,64 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin():void {
-    if (!this.loginForm.valid) {
-      return alert('Invalid')
-    }
-    
-    const data = {
-      user_name: this.loginForm.value.username,
-      pass_word: this.loginForm.value.password,
-    }
+    if (!this.loginForm.valid) return this._toastService.error('Error Valid!');
 
-    this._loginService.login(data).subscribe({
-      next: (res) => {
-        // this.account.username = this.loginForm.value.username
-        // this.account.img = 'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'
-        localStorage.setItem('account',JSON.stringify(res))
-
-        if (!localStorage.getItem('account')) 
-          return this._toastService.error('Login failed. Please try again.');
-
-        this._toastService.success('Login successful!');
-        setTimeout(() => {
-          this.router.navigate([''])
-        }, 1000);
+    this.loadingService.showLoading().subscribe({
+      next: async () =>  {
+        try {
+          const token = await this.fetchToken();
+          if(!token) return this._toastService.error('Error Token Not Found!');
+          this.authService.setToken(token);
+          const user = await this.checkAuthorization();
+          if(!user) return this._toastService.error('Error User Not Found!');
+          this.authService.setUser(user);
+        } catch (error) {
+          if(error == 'token') this._toastService.error('Error fetching token.');
+          if(error == 'login') this._toastService.error('Login failed. Please try again.');
+        } finally {
+          this.loadingService.closeLoading();
+          this._toastService.success('Login successful!');
+          setTimeout(() => {
+            this.router.navigate([''])
+          }, 1000);
+        }
       },
-      error: (err) => {
-        this._toastService.error('Login failed. Please try again.');
+      complete: () => {
+        this.loadingService.closeLoading()
+      },
+      error: () => {
+        this.loadingService.closeLoading()
       }
-    });
-
-
-
-
+    })
   }
+
+  fetchToken(): Promise<string> {
+    const dataToken = {
+      userId: this.loginForm.value.username,
+      userPassword: this.loginForm.value.password,
+    };
+  
+    return new Promise((resolve, reject) => {
+      this.authService.fetchToken(dataToken).subscribe({
+        next: (res) => resolve(res.token),
+        error: (err) => reject('token')
+      });
+    });
+  }
+
+  checkAuthorization(): Promise<User> {
+    const data = {
+      emp_id: '',
+      user_name: this.loginForm.value.username,
+      user_pass: this.loginForm.value.password,
+    }
+  
+    return new Promise((resolve, reject) => {
+      this.authService.login(data).subscribe({
+        next: (res) => resolve(res[0]),
+        error: (err) => reject('login')
+      });
+    });
+  }
+  
 }
