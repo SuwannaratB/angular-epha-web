@@ -6,6 +6,7 @@ import { ToastService } from 'angular-toastify';
 import { AuthService } from '../../../core/services/auth-service/auth.service';
 import { LoadingService } from '../../../core/services/loading-service/loading.service';
 import { LoginRes } from '../../../core/models/auth-model/login-res.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
+    private cookieService: CookieService,
     private loadingService: LoadingService,
     private _toastService: ToastService
   ){}
@@ -43,18 +45,29 @@ export class LoginComponent implements OnInit {
     this.loadingService.showLoading().subscribe({
       next: async () =>  {
         try {
+          // token
           const token = await this.fetchToken();
           if(!token) return this._toastService.error('Error Token Not Found!');
           this.authService.setToken(token);
+          this.cookieService.set('X-CSRF-TOKEN', token, {
+            domain: 'qas-epha.thaioilgroup.com',
+            path: '/service',
+            secure: true,
+            sameSite: 'None'
+          });
+          const cookieValue = this.cookieService.get('X-CSRF-TOKEN');
+          console.log(cookieValue);
+          // user
           const user = await this.checkAuthorization();
           if(!user) return this._toastService.error('Error User Not Found!');
           this.authService.setUser(user);
+          // success
+          this.loadingService.closeLoading();
+          this._toastService.success('Login successful!');
         } catch (error) {
           if(error == 'token') this._toastService.error('Error fetching token.');
           if(error == 'login') this._toastService.error('Login failed. Please try again.');
         } finally {
-          this.loadingService.closeLoading();
-          this._toastService.success('Login successful!');
           setTimeout(() => {
             this.router.navigate([''])
           }, 1000);
@@ -76,8 +89,8 @@ export class LoginComponent implements OnInit {
     };
   
     return new Promise((resolve, reject) => {
-      this.authService.fetchToken(dataToken).subscribe({
-        next: (res) => resolve(res.token),
+      this.authService.fetchToken().subscribe({
+        next: (res) => resolve(res.csrfToken),
         error: (err) => reject('token')
       });
     });

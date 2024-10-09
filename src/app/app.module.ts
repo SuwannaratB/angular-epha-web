@@ -8,6 +8,7 @@ import { ComponentsModule } from './components/components.module';
 import { ToastService, AngularToastifyModule } from 'angular-toastify';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async'; 
 import { Interceptor } from './core/interceptors/interceptor.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { Interceptor } from './core/interceptors/interceptor.interceptor';
       multi: true
     },
     ToastService,
+    CookieService,
     // provideHttpClient(),
     provideAnimationsAsync(),
 

@@ -10,3 +10,13 @@ export function resetFormGroup(formGroup: FormGroup): FormGroup {
     //   formGroup.patchValue(defaultValues);
     return defaultValues
 }
+
+export function resetObject<T extends object>(item: T): { [K in keyof T]: null } {
+  const resetItem = {} as { [K in keyof T]: null };
+
+  Object.keys(item).forEach(key => {
+    resetItem[key as keyof T] = null;
+  });
+
+  return resetItem;
+}

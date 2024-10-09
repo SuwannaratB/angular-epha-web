@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastService } from 'angular-toastify';
 import { User } from '../../core/models/user/user';
+import { AuthService } from '../../core/services/auth-service/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,33 +12,32 @@ import { User } from '../../core/models/user/user';
 export class NavbarComponent implements OnInit{
 
   constructor(
-    private _route: Router,
-    private _toastService: ToastService
+    private route: Router,
+    private authService: AuthService,
+    private toastService: ToastService
   ){}
   
   user: User | undefined;
 
   ngOnInit(): void {
-    this.isAccountLogin();
+    this.fecthUser();
   }
 
-  isAccountLogin():boolean {
-    if (localStorage.getItem('account')) {
-      const data = JSON.parse(localStorage.getItem('account')!)
-      this.user!.user_name = data.username
-      this.user!.user_img = data.img
-      return true;
-    }
-    return false;
+  fecthUser(): void {
+    this.user = this.authService.getUser()
   }
 
   onLogut():void {
-    localStorage.removeItem('account')
-    this._route.navigate(['auth'])
+    this.authService.clearUser();
+    this.route.navigate(['auth'])
   }
 
   addInfoToast() {
-    this._toastService.info('message');
+    this.toastService.info('message');
+  }
+
+ navigateMasterData(): void {
+  this.route.navigate(['master'])
  }
 
 }

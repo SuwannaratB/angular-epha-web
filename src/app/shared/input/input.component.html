@@ -25,6 +25,7 @@
 <div class="w-full" *ngIf="type == 'area'" >
     <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
     <textarea  class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300" 
+        style="outline: none;"
         id="message" 
         [rows]="rows"
         [placeholder]="placeholder"

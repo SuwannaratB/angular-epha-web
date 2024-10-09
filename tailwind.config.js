@@ -9,6 +9,7 @@ module.exports = {
         primary: '#3874ff',
         danger: '#ed2000',
         success: '#25b003',
+        secondary: '#f5f7fa',
       },
       fontSize: {
         'xs': '8px', 

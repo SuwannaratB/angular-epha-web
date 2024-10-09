@@ -7,6 +7,11 @@ import { Header } from '../../../../core/models/header.model';
 import { HraSaveReq } from '../../../../core/models/hra-model/hra-save-req.model';
 import { HraGeneral } from '../../../../core/models/hra-model/hra-general.model';
 import { HraSession } from '../../../../core/models/hra-model/hra-session.model';
+import { AuthService } from '../../../../core/services/auth-service/auth.service';
+import { User } from '../../../../core/models/user/user';
+import { HraHealthHazard } from '../../../../core/models/hra-model/hra-health-hazard.model';
+import { HraHazard } from '../../../../core/models/hra-model/hra-hazard.model';
+import { HraSubArea } from '../../../../core/models/hra-model/hra-sub-area.model';
 
 @Component({
   selector: 'app-create',
@@ -15,16 +20,10 @@ import { HraSession } from '../../../../core/models/hra-model/hra-session.model'
 })
 export class CreateComponent implements OnInit {
 
-  constructor(
-    private fb: FormBuilder,
-    private hraService: HraService,
-    private loadingService: LoadingService,
-  ){}
-
   phaNo: string = 'HRA-2024-00000XX';
+  user: User | undefined
   currentTab: number = 2;
-  isLoading: boolean = false;
-  // isLoading: boolean = true;
+  isLoading: boolean = true;
   // Form Groups
   generalForm: FormBuilder | any;
   sessionForm: FormBuilder | any;
@@ -38,17 +37,30 @@ export class CreateComponent implements OnInit {
   areaList: any[] = [];
   apuList: any[] = [];
   header: Header | undefined;
+  // tab 1
+
+  // tab 2
+  subAreas: any[] = [];
+  hazards: any[] = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private hraService: HraService,
+    private authService: AuthService,
+    private loadingService: LoadingService,
+  ){
+    this.user = authService.getUser();
+  }
   
   ngOnInit(): void {
     this.initFormGroup();
-    this.setHealthHazardForm();
     this.fetchHRA();
   }
 
   fetchHRA(): void {
     const data = {
       sub_software: "hra",
-      user_name: "ZKULUWAT",
+      user_name: this.user!.user_name,
       token_doc: "",
       type_doc: "create"
     }
@@ -58,6 +70,7 @@ export class CreateComponent implements OnInit {
           next: (value) => {
             this.setGeneralForm(value.general);
             this.setSessionForm(value.session);
+            this.setHealthHazardForm(value.subareas, value.hazard);
             this.setMaster(value);
             this.isLoading = false;
           },
@@ -114,7 +127,7 @@ export class CreateComponent implements OnInit {
   //   console.log('session form ==> ',this.sessionForm.value)
   // }
 
-  setHealthHazardForm(): void {
+  setHealthHazardForm(valueSubArea: HraSubArea[], valueHazard: HraHazard[]): void {
     const moc = [
       {
         seq: 1,
@@ -122,31 +135,32 @@ export class CreateComponent implements OnInit {
       }
     ]
     this.healthHazardForm.clear(); 
-    moc.forEach(data => {
+    valueSubArea.forEach(data => {
       this.healthHazardForm.push(this.fb.group({
         ...data,
-        type_hazards: [[
-          {
-            seq: 11,
-          },
-          {
-            seq: 22,
-          },
-          {
-            seq: 22,
-          },
-          {
-            seq: 22,
-          },
-        ]],
-        health_hazards: [[
-          {
-            seq: 111,
-          },
-          {
-            seq: 222,
-          },
-        ]],
+        hazards: [[...valueHazard]]
+        // type_hazards: [[
+        //   {
+        //     seq: 11,
+        //   },
+        //   {
+        //     seq: 22,
+        //   },
+        //   {
+        //     seq: 22,
+        //   },
+        //   {
+        //     seq: 22,
+        //   },
+        // ]],
+        // health_hazards: [[
+        //   {
+        //     seq: 111,
+        //   },
+        //   {
+        //     seq: 222,
+        //   },
+        // ]],
       }));
     });
     console.log('health hazards form ==> ',this.healthHazardForm.value)

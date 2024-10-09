@@ -1,41 +1,41 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { AuthService } from '../services/auth-service/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
 
   constructor(private authService: AuthService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {  
-    // Skip interceptor for a specific URL
-    // if (req.url === 'https://qas-epha.thaioilgroup.com/Login/Authentication') {
-    //   modifiedReq = req.clone({
-    //     setHeaders: {
-    //       'X-XSRF-TOKEN': token,
-    //     }
-    //   });
-    //   return next.handle(modifiedReq);
-    // }
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> { 
+     
     const token = this.authService.getToken();
-    let modifiedReq = req;
+    let modifiedReq = req.clone({
+      withCredentials: true
+    });
 
     if (!req.url.startsWith('/domainProxy')) {
+      modifiedReq = modifiedReq.clone({
+        url: `/domainProxy${req.url}`
+      });
+
       if (token) {
-        modifiedReq = req.clone({
-          url: `/domainProxy${req.url}`,
+        modifiedReq = modifiedReq.clone({
           setHeaders: {
-            'Authorization': `Bearer ${token}`,
+            'X-CSRF-TOKEN': token.toString() 
           }
-        });
-      } else {
-        modifiedReq = req.clone({
-          url: `/domainProxy${req.url}`
         });
       }
     }
 
-    return next.handle(modifiedReq);
+    return next.handle(modifiedReq)
   }
 }
+// headers: {
+//   'X-CSRF-TOKEN': $scope.token
+// },
+// xhrFields: {
+//   withCredentials: true // เปิดการส่ง Cookie ไปพร้อมกับคำขอ
+// }

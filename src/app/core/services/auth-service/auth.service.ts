@@ -37,11 +37,12 @@ export class AuthService {
 
   clearUser(): void {
     localStorage.removeItem(this.storageKey);
+    localStorage.removeItem('token');
   }
 
   // API
-  fetchToken(data: TokenReq): Observable<TokenRes> {
-    return this.http.post<TokenRes>(`/Login/GetAntiForgeryToken`, data);
+  fetchToken(): Observable<TokenRes> {
+    return this.http.get<TokenRes>(`/Login/GetAntiForgeryToken`,);
   }
 
   login(data: LoginReq): Observable<User[]> {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-options',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './options.component.scss'
 })
 export class OptionsComponent {
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef;
   @Input() icon: string = '';
   @Output() outAdd = new EventEmitter<void>();
   @Output() outCopy = new EventEmitter<void>();
@@ -13,13 +14,21 @@ export class OptionsComponent {
 
   onAdd() {
     this.outAdd.emit(); // ส่ง Event เมื่อคลิกปุ่ม
+    this.closeDropdown();
   }
 
   onCopy() {
     this.outCopy.emit(); // ส่ง Event เมื่อคลิกปุ่ม
+    this.closeDropdown();
   }
 
   onDelete() {
     this.outDelete.emit(); // ส่ง Event เมื่อคลิกปุ่ม
+    this.closeDropdown();
+  }
+
+  closeDropdown() {
+    const dropdownElement = this.dropdownMenu.nativeElement;
+    dropdownElement.classList.remove('dropdown-open');
   }
 }

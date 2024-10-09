@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { dataMasterHome } from '../../core/data/dataMasterHome';
 
 @Component({
   selector: 'app-master',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './master.component.scss'
 })
 export class MasterComponent {
-
+  dataMasterHome = dataMasterHome;
 }

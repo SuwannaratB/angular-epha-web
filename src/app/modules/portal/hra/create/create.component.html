@@ -37,7 +37,8 @@
                     'text-white': currentTab == 2, 
                     'text-primary': currentTab != 2}"/>
             <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
-                <app-tab-health-hazards [healthHazardForm]="healthHazardForm" />
+                <app-tab-health-hazards 
+                    [healthHazardForm]="healthHazardForm" />
             </div>
             <input type="radio" 
                 name="tabs_hazid" 

@@ -1,9 +1,8 @@
 <div class="flex flex-col gap-2 rounded-lg border-[1px] border-gray-200 p-6">
-    <app-title title="Health Risk Assessment" />
     <div class="w-full">
         <table class="table text-sm">
             <thead>
-              <tr class="border text-gray-700">
+              <tr class="border text-gray-700 bg-secondary">
                   <th class="border text-center">Name of Sub Area</th>
                   <th class="border text-center">Type of Hazards</th>
                   <th class="border text-center">Health Hazrd or Risk Factor</th>
@@ -26,15 +25,19 @@
                         </div>
                     </div>
                 </td>
+
                 <td class="border align-top text-center p-0">
-                  <div class="flex items-center gap-6 border-b p-3" *ngFor="let itemTypeHazard of itemControl.value.type_hazards; let j = index">
+                  <div class="flex items-center gap-6 border-b p-3" 
+                    [ngClass]="{'border-none': !itemControl.value.hazards[j+1]}" 
+                    *ngFor="let itemTypeHazard of itemControl.value.hazards; let j = index">
                     <div class="flex flex-col justify-center">
                         {{ i+1 }}.{{ j+ 1 }}
-                        <app-options />
+                        <app-options (outAdd)="onAddTypeHazard(itemControl.value.hazards, itemControl.value.hazards[j], j)" />
                     </div>
                     <app-select class="w-full" />
                   </div>
                 </td>
+
                 <td class="border align-top text-center">
                     <div class="flex items-center gap-6">
                         <div class="flex flex-col justify-center">
@@ -44,8 +47,13 @@
                         <app-select class="w-full" />
                     </div>
                 </td>
+
                 <td class="border align-top text-center">
-                  
+                  j
+                </td>
+
+                <td class="border align-top text-center">
+                  j
                 </td>
               </tr>
             </tbody>

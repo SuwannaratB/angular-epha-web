@@ -1,7 +1,7 @@
 export class TokenRes {
-    token: string;
+  csrfToken: string;
   
-    constructor(token: string){
-      this.token = token;
+    constructor(csrfToken: string){
+      this.csrfToken = csrfToken;
     }
   }
