@@ -40,5 +40,9 @@ export class NavbarComponent implements OnInit{
   this.route.navigate(['master'])
  }
 
+ navigateEmoc(): void {
+  this.route.navigate(['emoc'])
+ }
+
 }
 
