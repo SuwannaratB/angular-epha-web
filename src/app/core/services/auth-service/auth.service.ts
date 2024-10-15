@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { LoginRes } from '../../models/auth-model/login-res.model';
 import { LoginReq } from '../../models/auth-model/login-req.model';
 import { TokenReq } from '../../models/token-model/token-req.model';
@@ -45,7 +45,8 @@ export class AuthService {
     return this.http.get<TokenRes>(`/Login/GetAntiForgeryToken`,);
   }
 
-  login(data: LoginReq): Observable<User[]> {
-    return this.http.post<User[]>(`/Login/check_authorization`, data);
+  login(data: LoginReq): Observable<any> {
+    return this.http.post<any>(`/Login/check_authorization`, data);
   }
+
 }

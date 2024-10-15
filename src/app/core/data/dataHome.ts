@@ -67,7 +67,7 @@ export const dataHome = [
     {
         img: "/images/home-images/search@3x.png", 
         title:"SEARCH",
-        path: "/hazop/search",
+        path: "search",
         link: true,
         disable: false,
     },
