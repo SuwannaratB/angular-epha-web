@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { SearchRoutingModule } from './search-routing.module';
 import { SearchComponent } from './search.component';
+import { SharedModule } from '../../../shared/shared.module';
+import { ComponentsModule } from '../../../components/components.module';
 
 
 @NgModule({
@@ -11,6 +13,8 @@ import { SearchComponent } from './search.component';
   ],
   imports: [
     CommonModule,
+    SharedModule,
+    ComponentsModule,
     SearchRoutingModule
   ]
 })

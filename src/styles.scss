@@ -14,6 +14,15 @@ html, body {
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.main-container {
+    @apply flex flex-col gap-4 py-2 px-6;
+    min-height: calc(100vh - var(--navbar-height));
+}
+
+.main-card {
+    @apply bg-white p-6 border-[1px] border-gray-200 rounded-lg shadow-md
+}
+
 /* ปรับแต่งแท็บทุกตัวในโปรเจค */
 .tab {
     --tab-padding: 36px; 

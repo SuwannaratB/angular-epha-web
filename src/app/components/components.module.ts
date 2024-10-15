@@ -12,20 +12,22 @@ import { ModalComponent } from './modals/modal/modal.component';
 import { HeaderFollowUpComponent } from './header-follow-up/header-follow-up.component';
 import { TableFollowUpComponent } from './tables/table-follow-up/table-follow-up.component';
 import { LoadingComponent } from './loading/loading.component';
+import { HeaderSearchComponent } from './header-search/header-search.component';
 
 
 @NgModule({
   declarations: [
+    ModalComponent,
     TitleComponent,
     NavbarComponent,
     BannerComponent,
     HeaderComponent,
+    LoadingComponent,
+    HeaderSearchComponent,
+    TableFollowUpComponent,
+    HeaderFollowUpComponent,
     ModalMemberTeamComponent,
     ModalAssessmentTeamComponent,
-    ModalComponent,
-    HeaderFollowUpComponent,
-    TableFollowUpComponent,
-    LoadingComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,7 @@ import { LoadingComponent } from './loading/loading.component';
     HeaderComponent,
     BannerComponent,
     NavbarComponent,
+    HeaderSearchComponent,
     TableFollowUpComponent,
     HeaderFollowUpComponent,
   ]
