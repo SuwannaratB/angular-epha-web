@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +10,23 @@ import { Location } from '@angular/common';
 export class HeaderComponent {
 
   constructor(
-    private _location: Location
+    private location: Location,
+    private router: Router,
   ){}
 
   @Input() phaNo: string = '';
+  @Input() urlBack: string = '';
 
   @Output() outCancel = new EventEmitter<void>();
   @Output() outSave = new EventEmitter<void>();
   @Output() outTaskRegister = new EventEmitter<void>();
 
   onBack(): void{
-    this._location.back();
+    if (this.urlBack) {
+      this.router.navigate([this.urlBack])
+    } else {
+      this.location.back();
+    }
   }
 
   onCancel(): void{

@@ -5,8 +5,16 @@
         {{label}}
     </button>
     <div class="mt-2">
-      <p class="text-start pl-2" *ngFor="let itemMember of data">
-        {{itemMember.employee_displayname}}
-      </p>
+      <ng-container *ngIf="employeeeData.length != 0">
+        <p class="text-start pl-2" *ngFor="let itemMember of employeeeData">
+          {{itemMember.employee_displayname}}
+        </p>
+      </ng-container>
+      <ng-container *ngIf="memberTeamData.length != 0">
+        <p class="text-start pl-2" *ngFor="let itemMember of memberTeamData">
+          {{itemMember.user_displayname}}
+        </p>
+      </ng-container>
+      
     </div>
   </section>

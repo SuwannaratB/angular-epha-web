@@ -70,6 +70,5 @@ export class TableFollowUpComponent implements OnInit {
     } else {
       this.filteredDataFollowUp = this.dataFollowUp;
     }
-    console.log(this.filteredDataFollowUp)
   }
 }

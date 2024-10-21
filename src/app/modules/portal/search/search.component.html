@@ -1,6 +1,6 @@
 
 <div class="main-container">
-    <app-header-search />
+    <app-header-home title="Search Sub-Software" />
     <div class="main-card">
         <!-- rows 1 -->
         <div class="flex gap-10">
@@ -21,7 +21,6 @@
                 />
             </div>
         </div>
-        <div class="divider"></div>
         <!-- rows 2 -->
          <div class="flex gap-10">
             <div class="w-64 mb-4">
@@ -61,6 +60,14 @@
             </div>
             <div class="w-64 mb-4">
                 <app-input 
+                    label="Project Name"
+                    placeholder="Project Name" 
+                    (outChange)="onChangeFilter('ProjectName', $event)"
+                    [formControl]="filterForm.get('projectName')" 
+                />
+            </div>
+            <div class="w-64 mb-4">
+                <app-input 
                     label="Attendees Name"
                     placeholder="คนที่เกี่ยวข้องทั้งหมด (Owner, Member Team, Safety Reviewer, Attendees, ผู้เชี่ยวชาญเฉพาะด้าน)" 
                     (outChange)="onChangeFilter('AttendeesName', $event)"
@@ -70,39 +77,38 @@
          </div>
          <!-- table -->
           <div class="main-card">
-            <app-title [title]="'Result (' + listData.length + ')'" />
+            <app-title [title]="'Results (' + listData.length + ')'" />
             <div class="max-h-96 overflow-auto mt-6">
                 <table class="table text-md border border-gray-300">
                   <thead class="bg-[#f5f7fa]">
                     <tr class="uppercase text-gray-700">
-                      <th class="text-center border border-gray-300" rowspan="2"></th>
-                      <th class="text-center border border-gray-300" rowspan="2">Sub-Software</th>
-                      <th class="text-center border border-gray-300" rowspan="2">PHA Status</th>
-                      <th class="text-center border border-gray-300" rowspan="2">PHA No.</th>
-                      <th class="text-center border border-gray-300" rowspan="2">Task Name</th>
-                      <th class="text-center border border-gray-300" colspan="3">Items Status</th>
-                      <th class="text-center border border-gray-300" rowspan="2"></th>
-                    </tr>
-                    <tr class="uppercase text-gray-700">
-                      <th class="text-center border border-gray-300">total</th>
-                      <th class="text-center border border-gray-300">open</th>
-                      <th class="text-center border border-gray-300">close</th>
+                      <th class="text-center  border-gray-300 w-[5%]" ></th>
+                      <th class="text-center  border-gray-300 w-[15%]" >Project No.</th>
+                      <th class="text-center  border-gray-300" >Tasks Name <span class="text-gray-500">(ชื่องาน)</span></th>
+                      <th class="text-center  border-gray-300 w-[15%]" >Status</th>
+                      <th class="text-center  border-gray-300 w-[15%]" >Revision</th>
+                      <th class="text-center  border-gray-300 w-[10%]" >request</th>
+                      <th class="text-center  border-gray-300 w-[5%]" ></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of listData">
-                        <td class="text-center border border-gray-300 text-primary"><span class="link">See Action Items</span></td>
-                        <td class="text-center border border-gray-300 uppercase">{{item.pha_sub_software}}</td>
-                        <td class="text-center border border-gray-300 uppercase">{{item.pha_status_name}}</td>
-                        <td class="text-center border border-gray-300 uppercase">{{item.pha_no}}</td>
-                        <td class="text-center border border-gray-300">{{item.pha_request_name}}</td>
-                        <td class="text-center border border-gray-300"></td>
-                        <td class="text-center border border-gray-300 text-danger"></td>
-                        <td class="text-center border border-gray-300 text-success"></td>
-                        <td class="text-center border border-gray-300 text-primary"><span  class="link">See Details</span></td>
+                        <td class="text-center  border-gray-300 text-primary">
+                            <div class="flex items-center justify-center w-full gap-4 p-2">
+                                <button> <i class="fa-solid fa-file-pdf text-2xl text-danger"></i></button>
+                                <button (click)="onOpenDocument(item)"><i class="fa-solid fa-share text-2xl"></i></button>
+                                {{item.id_apu}}
+                            </div>
+                        </td>
+                        <td class="text-center  border-gray-300 uppercase">{{item.pha_no}}</td>
+                        <td class="text-center  border-gray-300 uppercase">{{item.pha_request_name}}</td>
+                        <td class="text-center  border-gray-300 uppercase">{{item.pha_status_displayname}}</td>
+                        <td class="text-center  border-gray-300">{{item.pha_version_desc ?item.pha_version_text + '(' + item.pha_version_desc + ')' : '-'}}</td>
+                        <td class="text-center  border-gray-300">{{item.request_user_displayname ?item.request_user_displayname :'-'}}</td>
+                        <td class="text-center  border-gray-300"><button><i class="fa-solid fa-ellipsis"></i></button></td>
                     </tr>
                     <tr *ngIf="!listData.length">
-                        <td colspan="9" class="text-center border border-gray-300">No data available</td>
+                        <td colspan="9" class="text-center  border-gray-300">No data available</td>
                     </tr>
                   </tbody>
                 </table>

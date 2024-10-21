@@ -15,8 +15,8 @@
               <app-select 
                 label="sections" 
                 [options]="sectionList" 
-                [condition]="'departments'"
-                [conditionTo]="this.generalForm.value.id_departments"
+                [conditionKey]="'departments'"
+                [conditionEqual]="this.generalForm.value.id_departments"
                 [formControl]="generalForm.get('id_sections')"/>
             </div>
           </div>
@@ -38,8 +38,8 @@
                 <app-select 
                   label="name of area"
                   [options]="areaList"
-                  [condition]="'id_apu'"
-                  [conditionTo]="this.generalForm.value.id_toc"
+                  [conditionKey]="'id_apu'"
+                  [conditionEqual]="this.generalForm.value.id_toc"
                   (outChange)="onChangeGeneralForm('nameofArea')"
                   [formControl]="generalForm.get('id_unit_no')" />
               </div>
@@ -92,11 +92,11 @@
                   <div class="w-full flex items-center justify-center gap-4">
                     <app-member-button 
                       label="Add Member Team/Attendees" 
-                      [data]="itemControl.value.member_team"
+                      [employeeeData]="itemControl.value.member_team"
                       (outClick)="openDialog(i)" />
                     <app-member-button 
                       label="Add Assessment Team Leader" 
-                      [data]="itemControl.value.member_team"
+                      [employeeeData]="itemControl.value.member_team"
                       (outClick)="openDialog(i)" />
                   </div>
                 </td>

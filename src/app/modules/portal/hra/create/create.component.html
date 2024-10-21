@@ -1,6 +1,7 @@
 <div *ngIf="!isLoading" class="flex flex-col gap-4 min-h-[92vh] py-2 px-6">
     <app-header 
         [phaNo]="phaNo" 
+        [urlBack]="params ? 'search' : ''"
         (outSave)="onSave()"
         (outCancel)="onCancel()"
         (outTaskRegister)="onTaskRegister()" />

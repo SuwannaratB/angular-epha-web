@@ -1,0 +1,73 @@
+<div class="main-card">
+    <div class="max-h-96 overflow-auto mt-6">
+        <table class="table text-md border border-gray-300">
+          <thead class="bg-[#f5f7fa]">
+            <tr class="uppercase text-gray-700">
+              <th class="text-center  border-gray-300 w-[5%]" >No</th>
+              <th class="text-center  border-gray-300 ">Member team</th>
+              <th class="text-center  border-gray-300 w-[30%]">Session Date Time</th>
+              <th class="text-center  border-gray-300 w-[10%]" ></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let itemControl of sessionForm.controls; let i = index">
+                <td class="text-center align-top border-gray-300 uppercase">
+                    <p class="pt-2">{{i+1}}</p>
+                </td>
+                <td class="text-center align-top border-gray-300 uppercase">
+                    <app-member-button 
+                        label="Add Member Team" 
+                        [memberTeamData]="itemControl.value.member_team" 
+                        (outClick)="openDialog(i)" 
+                    />
+                </td>
+                <td class="text-center align-top border-gray-300 uppercase">
+                    <div class="w-full flex items-center justify-center gap-4">
+                        <app-input 
+                            class="w-52"
+                            type="date" 
+                            [formControl]="itemControl.get('meeting_date')" 
+                        />
+                        <p>Time</p>
+                        <app-select 
+                            class="w-20"
+                            [options]="timeHr" 
+                            (outChange)="onChangeSessionForm('startTime', i)"
+                            [formControl]="itemControl.get('meeting_start_time_hh')" 
+                        />
+                        <app-select 
+                            class="w-20"
+                            [options]="timeMin" 
+                            (outChange)="onChangeSessionForm('startTime', i)"
+                            [formControl]="itemControl.get('meeting_start_time_mm')"
+                        />
+                        <p>To</p>
+                        <app-select 
+                            class="w-20"
+                            [options]="timeHr" 
+                            (outChange)="onChangeSessionForm('endTime', i)"
+                            [formControl]="itemControl.get('meeting_end_time_hh')"
+                        />
+                        <app-select 
+                            class="w-20"
+                            [options]="timeMin" 
+                            (outChange)="onChangeSessionForm('endTime', i)"
+                            [formControl]="itemControl.get('meeting_end_time_mm')"
+                        />
+                    </div>
+                </td>
+                <td class="text-center align-top border-gray-300">
+                    <div class="w-full flex items-center justify-center gap-2">
+                        <app-icon-button icon="delete" (outClick)="onDeleteSession(i)" />
+                        <app-icon-button icon="copy" (outClick)="onCopySession(i)" />
+                        <app-icon-button icon="add" (outClick)="onAddSession(i)" />
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="!sessionForm.controls.length">
+                <td colspan="9" class="text-center  border-gray-300">No data available</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>

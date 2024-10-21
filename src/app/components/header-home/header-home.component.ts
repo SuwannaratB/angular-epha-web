@@ -1,21 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Location } from '@angular/common';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-header-search',
-  templateUrl: './header-search.component.html',
-  styleUrl: './header-search.component.scss'
+  selector: 'app-header-home',
+  templateUrl: './header-home.component.html',
+  styleUrl: './header-home.component.scss'
 })
-export class HeaderSearchComponent {
+export class HeaderHomeComponent {
   constructor(
-    private _location: Location
+    // private _location: Location,
   ){}
 
   @Input() title: string = 'Search Sub-Software';
   @Output() outCreate = new EventEmitter<void>();
 
   onBack(): void{
-    this._location.back();
+    window.location.href = environment.domain + '/home/portal'
   }
 
   onClear(): void{

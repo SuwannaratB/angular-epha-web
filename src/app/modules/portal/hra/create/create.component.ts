@@ -12,6 +12,10 @@ import { User } from '../../../../core/models/user/user';
 import { HraHealthHazard } from '../../../../core/models/hra-model/hra-health-hazard.model';
 import { HraHazard } from '../../../../core/models/hra-model/hra-hazard.model';
 import { HraSubArea } from '../../../../core/models/hra-model/hra-sub-area.model';
+import { getRouteParams } from '../../../../core/utils/function';
+import { ActivatedRoute } from '@angular/router';
+import { NextPage } from '../../../../core/models/next-page.model';
+import { PageReq } from '../../../../core/models/page-req.model';
 
 @Component({
   selector: 'app-create',
@@ -20,10 +24,12 @@ import { HraSubArea } from '../../../../core/models/hra-model/hra-sub-area.model
 })
 export class CreateComponent implements OnInit {
 
+  subSoftware:string = 'hra'
   phaNo: string = 'HRA-2024-00000XX';
   user: User | undefined
   currentTab: number = 2;
   isLoading: boolean = true;
+  params: NextPage | undefined;
   // Form Groups
   generalForm: FormBuilder | any;
   sessionForm: FormBuilder | any;
@@ -45,6 +51,7 @@ export class CreateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private route: ActivatedRoute,
     private hraService: HraService,
     private authService: AuthService,
     private loadingService: LoadingService,
@@ -52,21 +59,23 @@ export class CreateComponent implements OnInit {
     this.user = authService.getUser();
   }
   
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    // ถ้ามาจากหน้า search จะได้ข้อมมูล dataNexPage
+    this.params = await getRouteParams(this.route);
     this.initFormGroup();
     this.fetchHRA();
   }
 
   fetchHRA(): void {
-    const data = {
-      sub_software: "hra",
-      user_name: this.user!.user_name,
-      token_doc: "",
-      type_doc: "create"
-    }
+    const payload = new PageReq(
+      this.params?.PHA_SubSoftware ?? this.subSoftware, 
+      this.params?.PHA_Seq.toString() ?? '', 
+      this.params?.PHA_TypeDoc ?? 'create', 
+      this.user?.user_name ?? ''
+    )
     this.loadingService.showLoading().subscribe({
       next: () => {
-        this.hraService.getHra(data).subscribe({
+        this.hraService.getHra(payload).subscribe({
           next: (value) => {
             this.setGeneralForm(value.general);
             this.setSessionForm(value.session);

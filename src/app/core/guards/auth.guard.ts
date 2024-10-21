@@ -3,6 +3,7 @@ import { ActivatedRoute, CanActivateChildFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth-service/auth.service';
 import * as CryptoJS from 'crypto-js';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 export const authGuard: CanActivateChildFn = async (childRoute, state) => {
   const router = inject(Router);
@@ -10,35 +11,31 @@ export const authGuard: CanActivateChildFn = async (childRoute, state) => {
   const authService = inject(AuthService);
   const token = authService.getToken();
 
-  setTimeout(async () => {
-    const params = await getQueryParams(route);
-    const key = params['key']; // Replace 'key' with your actual query parameter key
-    const secretKey = 'your-secret-key';
-    if (key) {
-      const bytes = CryptoJS.AES.decrypt(key, secretKey);
-      const decodedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  if (state.url == '/') {
+    setTimeout(async () => {
+      try {
+        const params = await getQueryParams(route);
+        const key = params['key']; // Replace 'key' with your actual query parameter key
 
-      if (!decodedData) return
+        if (!key) window.location.href = environment.domain + '/home/portal' 
+        const bytes = CryptoJS.AES.decrypt(key, environment.secretKey);
+        const decodedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  
+        if (!decodedData) return
+  
+        const token = decodedData.token
+        const module = decodedData.module
+  
+        authService.setToken(token)
+        authService.setUser(decodedData['user'])
+        router.navigate([module]);
 
-      const token = decodedData.token
-      const module = decodedData.module
-      const username = decodedData.username
-      const roleType = decodedData.role_type
-
-      authService.setToken(token)
-      authService.setUser({
-        user_name: username,
-        user_displayname: '',
-        user_email: '',
-        role_type: roleType,
-        user_id: '',
-        user_img: '',
-      })
-      console.log(module)
-      router.navigate([module]);
-    }
-
-  }, 1);
+      } catch (error) {
+        window.location.href = environment.domain + '/home/portal'
+      }
+  
+    }, 1);
+  }
 
   return true
 

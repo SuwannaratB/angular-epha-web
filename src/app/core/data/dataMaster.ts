@@ -1,3 +1,42 @@
+export const actionRequired = [
+    { id: 0, name: 'ALL' },
+    { id: 1, name: 'Recommendation Closing' },
+    { id: 2, name: 'Reviewer' },
+    { id: 3, name: 'Approve' },
+    { id: 4, name: 'Review & Approve' },
+    { id: 5, name: 'Approver' },
+    { id: 6, name: 'For Info' },
+]
+
+export const subSoftware = [
+    { id: 1, name: 'HAZOP' },
+    { id: 2, name: 'JSEA' },
+    { id: 3, name: 'WHATIF' },
+    { id: 4, name: 'HRA' },
+]
+
+export const statusSoftware = [
+    { id: 0, name: 'ALL' },
+    { id: 11, name: 'DRAFT' },
+    { id: 12, name: 'WAITING PHA CONDUCT' },
+    { id: 13, name: 'WAITING FOLLOW UP' },
+    { id: 14, name: 'WAITING REVIEW FOLLOW UP' },
+    { id: 21, name: 'WAITING APPROVE REVIEW' },
+    { id: 22, name: 'APPROVE REJECT' },
+    { id: 81, name: 'CANCEL' },
+    { id: 91, name: 'CLOSED' },
+]
+
+export const expenseType = [
+    { id: 0, name: 'ALL' },
+    { id: 1, name: 'OPEX' },
+    { id: 2, name: 'CAPEX' },
+]
+export const subExpenseType = [
+    { id: 0, name: 'ALL' },
+    { id: 1, name: 'NORMAL' },
+    { id: 2, name: 'INTERNAL STUDY' },
+]
 
 export const timeHr = [
     { name: '00', id: 0 },

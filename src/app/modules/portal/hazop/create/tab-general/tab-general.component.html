@@ -1,0 +1,101 @@
+<div class="main-card" *ngIf="generalForm">
+    <div class="flex flex-col gap-2">
+        <!-- rows 1 -->
+        <div class="flex gap-6">
+            <app-select 
+                class="w-56"
+                label="projec type" 
+                [options]="listProjectType"
+                [conditionKey]="'id'"
+                [conditionNotEqual]="'0'"
+                (outChange)="onChangeForm()"
+                [formControl]="generalForm.get('expense_type')"
+            />
+            <app-select 
+                class="w-56"
+                label="projec type" 
+                [options]="listSubProjectType"
+                [conditionKey]="'id'"
+                [conditionNotEqual]="'0'"
+                (outChange)="onChangeForm()"
+                [formControl]="generalForm.get('sub_expense_type')"
+            />
+            <app-input
+                class="w-56"
+                label="e-MOC Reference Number"
+                placeholder="Input Data"
+                (outChange)="onChangeForm()"
+                [formControl]="generalForm.get('reference_moc')"
+            />
+        </div>
+        <!-- rows 2 -->
+        <div class="flex gap-6">
+            <app-select 
+                class="w-56"
+                label="pArea Process Unit" 
+                [options]="listAPU"
+                (outChange)="onChangeForm('apu')"
+                [formControl]="generalForm.get('id_apu')"
+            />
+            <app-select 
+                class="w-56"
+                label="Unit No" 
+                [options]="listUnitNo"
+                [conditionKey]="'id_apu'"
+                [conditionEqual]="this.generalForm.value.id_apu"
+                (outChange)="onChangeForm()"
+                [formControl]="generalForm.get('id_unit_no')"
+            />
+            <app-select 
+                class="w-56"
+                label="Functional Location" 
+                (outChange)="onChangeForm()"
+            />
+            <app-select 
+                class="w-56"
+                label="Functional Location Additional" 
+                (outChange)="onChangeForm()"
+            />
+        </div>
+        <!-- rows 3 -->
+         <div class="flex gap-6">
+            <app-input
+                class="w-56"
+                label="moc title"
+                placeholder="Project Name"
+                (outChange)="onChangeForm()"
+                [formControl]="generalForm.get('pha_request_name')"
+            />
+            <app-input
+                class="w-56"
+                type="date"
+                label="Target Start Date"
+                placeholder="Project Name"
+                (outChange)="onChangeForm()"
+                [formControl]="generalForm.get('target_start_date')"
+            />
+            <app-input
+                class="w-56"
+                type="date"
+                label="COMPLETION DATE (CLOSE OUT REPORT)"
+                placeholder="Project Name"
+                (outChange)="onChangeForm()"
+                [formControl]="generalForm.get('target_end_date')"
+            />
+         </div>
+         <!-- rows 4 -->
+          <div class="flex gap-6"> 
+            <app-input
+                class="w-[472px]"
+                type="area"
+                label="Study Objective and Work Scope"
+                placeholder="Study Objective and Work Scope"
+                (outChange)="onChangeForm()"
+                [formControl]="generalForm.get('work_scope')"
+            />
+            <!-- <small *ngIf=" generalForm.get('work_scope').invalid && generalForm.get('work_scope').errors?.required" class="error-message">
+                required 
+            </small> -->
+          </div>
+    </div>
+</div>

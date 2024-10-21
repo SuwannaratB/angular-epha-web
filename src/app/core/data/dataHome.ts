@@ -4,14 +4,15 @@ export const dataHome = [
     {
         img: "/images/home-images/home-task@3x.png", 
         title:"MY TASKS",
-        path: `${environment.domain}/home/hometasks`,
+        path: `tasks`,
         link: true,
         disable: false,
     },
     {
         img: "/images/home-images/hazop@3x.png", 
         title: "HAZOP",
-        path: `${environment.domain}/hazop/followup`,
+        path: `hazop`,
+        // path: `${environment.domain}/hazop/followup`,
         link: true,
         disable: false,
     },

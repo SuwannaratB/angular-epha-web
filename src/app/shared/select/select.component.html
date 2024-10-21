@@ -9,7 +9,7 @@
 
 <label class="form-control w-full gap-1" >
   <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
-  <select class="select select-bordered py-0 min-h-0 h-9 text-md bg-white border-gray-300" 
+  <select class="select select-bordered py-0 min-h-0 h-9 text-md bg-white border-gray-300 rounded-md" 
     [formControl]="formControl" 
     (change)="onSelectionChange($event)"
     [name]="name"
@@ -17,4 +17,7 @@
     <option value="null" disabled selected>{{placeholder}}</option>
     <option *ngFor="let option of filteredOptions" [value]="option.id">{{ option.name }}</option>
   </select>
+  <small class="error-message text-sm text-red-500" *ngIf="formControl.invalid && (formControl.touched || error)">
+      This field is required
+  </small>
 </label>

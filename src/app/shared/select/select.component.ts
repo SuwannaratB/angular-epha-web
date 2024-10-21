@@ -16,13 +16,15 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
 export class SelectComponent implements ControlValueAccessor{
 
   @Input() formControl: FormControl = new FormControl;
-  @Input() condition: string = '';
-  @Input() conditionTo: string = '';
+  @Input() conditionKey: string = '';
+  @Input() conditionEqual: string = '';
+  @Input() conditionNotEqual: string = '';
   @Input() label: string = '';
   @Input() id: string = '';
   @Input() name: string = '';
   @Input() placeholder = ''//'Please Select'
   @Input() disable: boolean = false;
+  @Input() error: boolean = false;
   @Input() options: { id: number, name: string }[] = [];
   @Output() outChange = new EventEmitter<any>();
   selectedValue: number = 0;
@@ -62,10 +64,19 @@ export class SelectComponent implements ControlValueAccessor{
 
   get filteredOptions() {
     // if(this.label == 'company')console.log(this.condition+'---'+this.conditionTo)
-    if (!this.condition) {
+    if (!this.conditionKey) {
       return this.options;
     }
-    return this.options.filter(option => (option as any)[this.condition] == this.conditionTo);
+
+    if (this.conditionEqual) {
+      return this.options.filter(option => (option as any)[this.conditionKey] == this.conditionEqual);
+    }
+
+    if (this.conditionNotEqual) {
+      return this.options.filter(option => (option as any)[this.conditionKey] != this.conditionEqual);
+    }
+
+    return this.options
   }
   
   

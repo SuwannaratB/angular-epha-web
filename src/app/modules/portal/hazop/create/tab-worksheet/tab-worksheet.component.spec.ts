@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderSearchComponent } from './header-search.component';
+import { TabWorksheetComponent } from './tab-worksheet.component';
 
-describe('HeaderSearchComponent', () => {
-  let component: HeaderSearchComponent;
-  let fixture: ComponentFixture<HeaderSearchComponent>;
+describe('TabWorksheetComponent', () => {
+  let component: TabWorksheetComponent;
+  let fixture: ComponentFixture<TabWorksheetComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HeaderSearchComponent]
+      declarations: [TabWorksheetComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HeaderSearchComponent);
+    fixture = TestBed.createComponent(TabWorksheetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

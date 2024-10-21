@@ -9,7 +9,8 @@ import { Employee } from '../../core/models/employee-model/employee.model';
 })
 export class MemberButtonComponent {
   @Input() label: string = '';
-  @Input() data: Employee[] = [];
+  @Input() employeeeData: Employee[] = [];
+  @Input() memberTeamData: MemberTeam[] = [];
   @Output() outClick = new EventEmitter<void>();
 
   onClick() {

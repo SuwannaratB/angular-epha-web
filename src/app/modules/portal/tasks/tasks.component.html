@@ -1,0 +1,85 @@
+
+<div class="main-container">
+    <app-header-home title="My Tasks" />
+    <div class="main-card">
+        <!-- rows 1 -->
+        <div class="flex gap-10 mb-4">
+            <div class="w-64">
+                <app-select 
+                    label="Sub-Software"
+                    [options]="listSubSoftware" 
+                    (outChange)="onChangeFilter()"
+                    [formControl]="filterForm.get('subSoftware')"
+                />
+            </div>
+            <div class="w-64">
+                <app-select 
+                    label="Action Required"
+                    [options]="listAcionRequired" 
+                    (outChange)="onChangeFilter()"
+                    [formControl]="filterForm.get('actionRequired')"
+                />
+            </div>
+            <div class="w-64">
+                <app-input
+                    icon="search"
+                    label="Search Document Number"
+                    placeholder="Search Document Number"
+                    (outChange)="onChangeFilter()"
+                    [formControl]="filterForm.get('docNumber')"
+                />
+            </div>
+        </div>
+         <!-- table -->
+          <div class="main-card">
+            <div class="max-h-96 overflow-auto mt-6">
+                <table class="table text-md border border-gray-300">
+                  <thead class="bg-[#f5f7fa]">
+                    <tr class="uppercase text-gray-700">
+                      <th class="text-center  border-gray-300 text-primary" >Total : ({{listData.length}}) Tasks.</th>
+                      <th class="text-center  border-gray-300" >PHA Type</th>
+                      <th class="text-center  border-gray-300" >Action Required</th>
+                      <th class="text-center  border-gray-300" >Document Number</th>
+                      <th class="text-center  border-gray-300" >Document Tile</th>
+                      <th class="text-center  border-gray-300" >Rev.</th>
+                      <th class="text-center  border-gray-300" >Originator</th>
+                      <th class="text-center  border-gray-300" >Received</th>
+                      <th class="text-center  border-gray-300" >Due Date</th>
+                      <th class="text-center  border-gray-300" >Remaining</th>
+                      <th class="text-center  border-gray-300" >Consolidator</th>
+                      <th class="text-center  border-gray-300" ></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of listData; let i = index">
+                        <td class="text-center  border-gray-300">{{ i+1 }}</td>
+                        <td class="text-center  border-gray-300 uppercase">{{item.pha_type}}</td>
+                        <td class="text-center  border-gray-300 uppercase text-primary">{{item.action_required}}</td>
+                        <td class="text-center  border-gray-300 uppercase">{{item.document_number}}</td>
+                        <td class="text-center  border-gray-300">{{item.document_title}}</td>
+                        <td class="text-center  border-gray-300">{{item.rev}}</td>
+                        <td class="text-center  border-gray-300">{{item.user_displayname}}</td>
+                        <td class="text-center  border-gray-300">{{item.receivesd}}</td>
+                        <td class="text-center  border-gray-300">{{item.due_date}}</td>
+                        <td class="text-center  border-gray-300">
+                            <div class="px-1 py-[2px] rounded-lg bg-danger_pastel" [ngClass]="{'bg-success_pastel': item.remaining > 0}">
+                                {{ item.remaining }}
+                            </div>                            
+                        </td>
+                        <td class="text-center  border-gray-300">{{item.consolidator}}</td>
+                        <td class="text-center  border-gray-300 text-primary">
+                            <div class="flex items-center justify-center w-full gap-4 p-2">
+                               <button> <i class="fa-solid fa-file-pdf text-2xl text-danger"></i></button>
+                                <button><i class="fa-solid fa-share text-2xl"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!listData.length">
+                        <td colspan="9" class="text-center  border-gray-300">No data available</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+    </div>
+</div>

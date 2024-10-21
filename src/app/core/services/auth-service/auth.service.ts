@@ -6,6 +6,7 @@ import { LoginReq } from '../../models/auth-model/login-req.model';
 import { TokenReq } from '../../models/token-model/token-req.model';
 import { TokenRes } from '../../models/token-model/token-res.model';
 import { User } from '../../models/user/user';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,8 @@ export class AuthService {
 
   getUser(): User {
     const user = localStorage.getItem(this.storageKey);
+
+    if(!user) window.location.href = environment.domain + '/home/portal'
     return user ? JSON.parse(user) : null;
   }
 

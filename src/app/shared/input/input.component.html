@@ -4,9 +4,9 @@
 
 <div class="w-full flex flex-col gap-1" *ngIf="type != 'area'">
     <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
-    <label class="input input-bordered flex items-center gap-2 bg-white h-9 border-gray-300" style="outline: none;">
+    <label class="input input-bordered flex items-center gap-2 bg-white h-9 border-gray-300 rounded-md" style="outline: none;">
         <mat-icon *ngIf="icon" class="text-[18px] pt-[3.5px]">{{icon}}</mat-icon>
-        <input class="grow bg-white border border-none text-gray-900 text-md rounded-md block w-full"
+        <input class="grow bg-white border border-none text-gray-900 text-md block w-full"
             [ngClass]="{'border-red-500':formControl.invalid && (formControl.touched || error)}"
             [type]="type"
             [name]="name"
@@ -17,19 +17,22 @@
             (ngModelChange)="onValueChange($event)"
         />
     </label>
-    <small class="error-message text-red-500" *ngIf="formControl.invalid && (formControl.touched || error)">
+    <small class="error-message text-sm text-red-500" *ngIf="formControl.invalid && (formControl.touched || error)">
         This field is required
     </small>
 </div>
 
-<div class="w-full" *ngIf="type == 'area'" >
+<div class="w-full flex flex-col gap-1" *ngIf="type == 'area'" >
     <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
-    <textarea  class="block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300" 
+    <textarea  class="block p-2.5 w-full text-md text-gray-900 bg-white rounded-lg border border-gray-300" 
         style="outline: none;"
         id="message" 
         [rows]="rows"
         [placeholder]="placeholder"
         [formControl]="formControl">
     </textarea>
+    <small class="error-message text-sm text-red-500" *ngIf="formControl.invalid && (formControl.touched || error)">
+        This field is required
+    </small>
 </div>
 

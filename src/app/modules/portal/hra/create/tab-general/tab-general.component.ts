@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalMemberTeamComponent } from '../../../../../components/modals/modal-member-team/modal-member-team.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { timeHr, timeMin } from '../../../../../core/data/dataTime';
+import { timeHr, timeMin } from '../../../../../core/data/dataMaster';
 import { HraSession } from '../../../../../core/models/hra-model/hra-session.model';
 import { resetFormGroup } from '../../../../../core/utils/form-groups';
 

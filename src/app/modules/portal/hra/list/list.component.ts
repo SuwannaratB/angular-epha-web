@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
+import { checkNavigateNextPage } from '../../../../core/utils/function';
 
 @Component({
   selector: 'app-list',
@@ -12,7 +13,8 @@ export class ListComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _route: Router,
+    private route: ActivatedRoute,
+    private router: Router,
     private _location: Location,
   ){}
   
@@ -21,7 +23,8 @@ export class ListComponent implements OnInit {
   currentTab: number = 1;
   filterForm: FormBuilder | any;
   
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await checkNavigateNextPage(this.route, this.router);
     this.initFilterForm();
   }
 
@@ -44,6 +47,6 @@ export class ListComponent implements OnInit {
   }
 
   onCreate(): void {
-    this._route.navigate(['/hra/create']);
+    this.router.navigate(['/hra/create']);
   }
 }

@@ -10,6 +10,9 @@ module.exports = {
         danger: '#ed2000',
         success: '#25b003',
         secondary: '#f5f7fa',
+
+        danger_pastel: '#ffcccc',
+        success_pastel: '#ccffcc',
       },
       fontSize: {
         'xs': '8px', 
