@@ -3,7 +3,7 @@ import { FormArray, FormBuilder } from '@angular/forms';
 import { HraRes } from '../../../../core/models/hra-model/hra-res.model';
 import { HraService } from '../../../../core/services/hra-service/hra.service';
 import { LoadingService } from '../../../../core/services/loading-service/loading.service';
-import { Header } from '../../../../core/models/header.model';
+import { Header } from '../../../../core/models/header-model/header.model';
 import { HraSaveReq } from '../../../../core/models/hra-model/hra-save-req.model';
 import { HraGeneral } from '../../../../core/models/hra-model/hra-general.model';
 import { HraSession } from '../../../../core/models/hra-model/hra-session.model';

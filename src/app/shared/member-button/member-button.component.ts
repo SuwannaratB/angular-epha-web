@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MemberTeam } from '../../core/models/member-team-model/member-team.model';
 import { Employee } from '../../core/models/employee-model/employee.model';
+import { Approver } from '../../core/models/member-team-model/approver.model';
 
 @Component({
   selector: 'app-member-button',
@@ -11,6 +12,8 @@ export class MemberButtonComponent {
   @Input() label: string = '';
   @Input() employeeeData: Employee[] = [];
   @Input() memberTeamData: MemberTeam[] = [];
+  @Input() approverData: Approver[] = [];
+
   @Output() outClick = new EventEmitter<void>();
 
   onClick() {

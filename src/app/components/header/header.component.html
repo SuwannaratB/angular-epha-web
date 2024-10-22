@@ -79,19 +79,19 @@
   <div class="bg-[#eff2f6] flex gap-8 p-4 text-md border-[1px] border-gray-200 rounded-md shadow-md">
     <div class="p">
       <p class="font-semibold mb-2">PHA No.:</p>
-      <p class="text-gray-500">{{phaNo}}</p>
+      <p class="text-gray-500">{{ phaNo ? phaNo : '-' }}</p>
     </div>
     <div class="p">
       <p class="font-semibold mb-2">Revision:</p>
-      <p class="text-gray-500">-</p>
+      <p class="text-gray-500">{{ revision ? revision : '-' }}</p>
     </div>
     <div class="p">
       <p class="font-semibold mb-2">Request By:</p>
-      <p class="text-gray-500">-</p>
+      <p class="text-gray-500">{{ requestBy ? requestBy : '-' }}</p>
     </div>
     <div class="p">
       <p class="font-semibold mb-2">Request Status:</p>
-      <p class="text-gray-500">Draft</p>
+      <p class="text-gray-500">{{ status ? status : '-' }}</p>
     </div>
     <div class="p">
       <p class="font-semibold mb-2">Auto-Save Interval:</p>

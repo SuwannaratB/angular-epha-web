@@ -7,7 +7,6 @@ import { HazopService } from '../../../../core/services/hazop-service/hazop.serv
 import { HazopGeneral } from '../../../../core/models/hazop-model/hazop-general.model';
 import { expenseType, subExpenseType } from '../../../../core/data/dataMaster';
 import { ActivatedRoute, Navigation, Router } from '@angular/router';
-import { Search } from '../../../../core/models/search-model/search.model';
 import { getIdMaster, getNameMaster, getRouteParams, transformDate } from '../../../../core/utils/function';
 import { PageReq } from '../../../../core/models/page-req.model';
 import { NextPage } from '../../../../core/models/next-page.model';
@@ -15,6 +14,9 @@ import { UnitNo } from '../../../../core/models/master_model/unit-no.model';
 import { HazopSession } from '../../../../core/models/hazop-model/hazop-session.model';
 import { MemberTeam } from '../../../../core/models/member-team-model/member-team.model';
 import { Ram } from '../../../../core/models/ram-model/ram.model';
+import { Header } from '../../../../core/models/header-model/header.model';
+import { Approver } from '../../../../core/models/member-team-model/approver.model';
+import { MaxService } from '../../../../core/services/max-service/max.service';
 
 @Component({
   selector: 'app-create',
@@ -25,8 +27,9 @@ export class CreateComponent implements OnInit {
 
   subSoftware: string = 'hazop';
   phaNo: string = 'HAZOP-2024-00000XX';
+  header: Header | undefined;
   user: User | undefined
-  currentTab: number = 4;
+  currentTab: number = 2;
   isLoading: boolean = true;
   params: NextPage | undefined;
   // Form Groups
@@ -39,13 +42,17 @@ export class CreateComponent implements OnInit {
   // Master
   listProjectType = expenseType;
   listSubProjectType = subExpenseType;
-  listAPU: {id: number, name: string}[] = []
-  listUnitNo: UnitNo[] = []
-  listRam: Ram[] = []
+  listUnitNo: UnitNo[] = [];
+  listRam: Ram[] = [];
+  listAPU: { id: number, name: string }[] = [];
+  // Delete Data
+  memberTeamDelete: MemberTeam[] = [];
+  approverDelete: Approver[] = [];
 
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private maxService: MaxService,
     private authService: AuthService,
     private hazopService: HazopService,
     private loadingService: LoadingService,
@@ -80,11 +87,14 @@ export class CreateComponent implements OnInit {
           next: (value) => {
             // General
             this.setGeneralForm(value.general);
-            this.setSessionForm(value.session, value.memberteam);
+            this.setSessionForm(value.session, value.memberteam, value.approver);
+            this.header = value.header[0];
             // Master
             this.listAPU = value.apu;
             this.listUnitNo = value.unit_no;
             this.listRam = value.ram;
+            // Max
+            this.maxService.setMax(value.max)
 
             this.isLoading = false;
           },
@@ -117,12 +127,13 @@ export class CreateComponent implements OnInit {
     console.log('generalForm ==> ', this.generalForm.value)
   }
 
-  setSessionForm(valueSession: HazopSession[], valueMemberTeam: MemberTeam[]): void {
+  setSessionForm(valueSession: HazopSession[], valueMemberTeam: MemberTeam[], valueApprover: Approver[]): void {
     this.sessionForm?.clear();
     valueSession.forEach(data => {
       this.sessionForm.push(this.fb.group({
         ...data,
         member_team: [[...valueMemberTeam]], // ตอน save delete key นี้ด้วย!
+        approver: [[...valueApprover]], // ตอน save delete key นี้ด้วย!
         meeting_date: transformDate(data.meeting_date),
         meeting_start_time_hh: data.meeting_start_time_hh == '00' ? 0 : Number(data.meeting_start_time_hh), // ตอน save convert กลับด้วย!
         meeting_start_time_mm: data.meeting_start_time_mm == '00' ? 0 : Number(data.meeting_start_time_mm), // ตอน save convert กลับด้วย!

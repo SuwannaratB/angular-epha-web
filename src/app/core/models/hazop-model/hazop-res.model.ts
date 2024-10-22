@@ -1,9 +1,11 @@
+import { Header } from "../header-model/header.model";
 import { UnitNo } from "../master_model/unit-no.model";
+import { Approver } from "../member-team-model/approver.model";
 import { Ram } from "../ram-model/ram.model";
 import { HazopGeneral } from "./hazop-general.model";
 
 export class HazopRes {
-    approver: any[];
+    approver: Approver[];
     approver_ta3: any[];
     apu: any[];
     apu_filter: any[];
@@ -18,7 +20,7 @@ export class HazopRes {
     functional_audition: any[];
     general: HazopGeneral[];
     guidwords: any[];
-    header: any[];
+    header: Header[];
     his_document_name: any[];
     his_document_no: any[];
     his_pha_request_name: any[];
@@ -45,7 +47,7 @@ export class HazopRes {
     user_in_pha_no: any[];
   
     constructor(
-        approver: any[],
+        approver: Approver[],
         approver_ta3: any[],
         apu: any[],
         apu_filter: any[],
@@ -60,7 +62,7 @@ export class HazopRes {
         functional_audition: any[],
         general: HazopGeneral[],
         guidwords: any[],
-        header: any[],
+        header: Header[],
         his_document_name: any[],
         his_document_no: any[],
         his_pha_request_name: any[],

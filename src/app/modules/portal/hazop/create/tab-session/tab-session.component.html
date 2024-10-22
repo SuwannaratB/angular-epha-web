@@ -11,15 +11,22 @@
           </thead>
           <tbody>
             <tr *ngFor="let itemControl of sessionForm.controls; let i = index">
-                <td class="text-center align-top border-gray-300 uppercase">
+                <td class="text-center align-top border-gray-300">
                     <p class="pt-2">{{i+1}}</p>
                 </td>
-                <td class="text-center align-top border-gray-300 uppercase">
-                    <app-member-button 
-                        label="Add Member Team" 
-                        [memberTeamData]="itemControl.value.member_team" 
-                        (outClick)="openDialog(i)" 
-                    />
+                <td class="text-center align-top border-gray-300">
+                    <div class="flex gap-4">
+                        <app-member-button 
+                            label="Add Member Team" 
+                            [memberTeamData]="itemControl.value.member_team" 
+                            (outClick)="openDialog(sessionForm.value[i].member_team, 'member_team', i)" 
+                        />
+                        <app-member-button 
+                            label="Assessment Team Leader" 
+                            [approverData]="itemControl.value.approver" 
+                            (outClick)="openDialog(sessionForm.value[i].approver, 'approver', i)" 
+                        />
+                    </div>
                 </td>
                 <td class="text-center align-top border-gray-300 uppercase">
                     <div class="w-full flex items-center justify-center gap-4">

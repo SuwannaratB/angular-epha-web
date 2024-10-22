@@ -1,9 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { timeHr, timeMin } from '../../../../../core/data/dataMaster';
 import { ModalMemberTeamComponent } from '../../../../../components/modals/modal-member-team/modal-member-team.component';
 import { MatDialog } from '@angular/material/dialog';
 import { resetFormGroup } from '../../../../../core/utils/form-groups';
+import { MaxService } from '../../../../../core/services/max-service/max.service';
+import { Header } from '../../../../../core/models/header-model/header.model';
+import { MemberTeam } from '../../../../../core/models/member-team-model/member-team.model';
+import { Approver } from '../../../../../core/models/member-team-model/approver.model';
+import { deleteDataArray } from '../../../../../core/utils/function';
 
 @Component({
   selector: 'app-tab-session',
@@ -15,9 +20,13 @@ export class TabSessionComponent {
   constructor(
     private fb: FormBuilder,
     public dialog: MatDialog,
+    public maxService: MaxService,
   ){}
 
   @Input() sessionForm: FormGroup| any;
+  @Input() memberTeamDelete: MemberTeam[] = [];
+  @Input() approverDelete: Approver[] = [];
+  @Input() header: Header | undefined;
 
   timeHr = timeHr;
   timeMin = timeMin;
@@ -32,10 +41,13 @@ export class TabSessionComponent {
     }
   }
 
-  openDialog(index: number): void{
+  openDialog(value: MemberTeam[]|Approver[], type: string, index: number): void{
     const dialogRef = this.dialog.open(ModalMemberTeamComponent, {
       panelClass: 'member-dialog',
-      data: this.sessionForm.value[index].member_team
+      data: {
+        value: value,
+        type: type,
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -46,17 +58,65 @@ export class TabSessionComponent {
 
   onAddSession(index: number): void{
     const session = this.sessionForm.at(index);
-    if(!session) return console.log('session form not found!')
+    const maxSeq = this.maxService.getMax('session');
+    if(!session || !maxSeq) return console.log('session or max seq not found!')
     const newSession = resetFormGroup({...session})
-    this.sessionForm.insert(index + 1, this.fb.group({...newSession, member_team: [[]]}));
+    this.sessionForm.insert(index + 1, this.fb.group({
+      ...newSession, 
+      id: maxSeq,
+      seq: maxSeq,
+      id_pha: this.header?.seq,
+      action_type: 'insert',
+      member_team: [[]],
+      approver: [[]],
+    }));
+    this.maxService.updateMax('session', maxSeq + 1);
     console.log( this.sessionForm.value)
   }
 
   onDeleteSession(index: number): void{
+    const session = this.sessionForm.at(index);
+    // delete member team
+    this.memberTeamDelete = deleteDataArray(session.value.member_team, 'member_team') as MemberTeam[];
+    // delete approver
+    this.approverDelete = deleteDataArray(session.value.approver, 'approver') as Approver[];
+
+    if (this.sessionForm.value.length > 1) {
+      this.sessionForm.removeAt(index);
+    } else {
+      session.patchValue({
+        action_change: 1,
+        member_team: [],
+        approver: [],
+        meeting_date: new Date().toISOString().split('T')[0],
+        meeting_start_time_hh: 0,
+        meeting_start_time_mm: 0,
+        meeting_end_time_hh: 0,
+        meeting_end_time_mm: 0,
+      });
+      console.log(session.value)
+      console.log(this.memberTeamDelete)
+      console.log(this.approverDelete)
+    }
+    // this.sessionForm.removeAt(index);
+  }
+
+  onCopySession(index: number) {
+    const session = this.sessionForm.at(index).value;
+    const maxSeq = this.maxService.getMax('session');
+    if(!session || !maxSeq) return console.log('session or max seq not found!')
+    const copiedSession = {
+      ...session, 
+      id: maxSeq,
+      seq: maxSeq,
+      action_type: 'insert',
+      member_team: [[...session.member_team]],         
+      approver: [[...session.approver]]         
+    };
     
+    this.sessionForm.insert(index + 1, this.fb.group(copiedSession));
+    this.maxService.updateMax('session', maxSeq + 1);
+    console.log(this.sessionForm.value)
   }
 
-  onCopySession(index: number): void{
-
-  }
 }

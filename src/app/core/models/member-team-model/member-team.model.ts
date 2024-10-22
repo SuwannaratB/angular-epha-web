@@ -1,42 +1,42 @@
 export class MemberTeam {
-  id: number;
-  no: number;
-  seq: number;
-  id_pha: number;
-  comment: string;
-  user_img: string;
-  user_name: string;
-  create_by: string;
-  update_by: string;
-  id_session: number;
-  user_title: string;
-  create_date: string;
-  update_date: string;
-  date_review: string;
-  action_type: string;
-  action_change: number;
-  action_review: string;
-  user_displayname: string;
+  id: number | null;
+  no: number | null;
+  seq: number | null;
+  id_pha: number | null;
+  comment: string | null;
+  user_img: string | null;
+  user_name: string | null;
+  create_by: string | null;
+  update_by: string | null;
+  id_session: number | null;
+  user_title: string | null;
+  create_date: string | null;
+  update_date: string | null;
+  date_review: string | null;
+  action_type: string | null;
+  action_change: number | null;
+  action_review: string | null;
+  user_displayname: string | null;
   
   constructor(
-    id: number,
-    no: number,
-    seq: number,
-    id_pha: number,
-    comment: string,
-    user_img: string,
-    user_name: string,
-    create_by: string,
-    update_by: string,
-    id_session: number,
-    user_title: string,
-    create_date: string,
-    update_date: string,
-    date_review: string,
-    action_type: string,
-    action_change: number,
-    action_review: string,
-    user_displayname: string,
+    id: number | null,
+    seq: number | null,
+    id_pha: number | null,
+    id_session: number | null,
+    no: number | null,
+    action_change: number | null,
+    action_type: string | null,
+    comment: string | null,
+    date_review: string | null,
+    action_review: string | null,
+    create_by: string | null,
+    update_by: string | null,
+    create_date: string | null,
+    update_date: string | null,
+    user_title: string | null,
+    user_img: string | null,
+    user_name: string | null,
+    user_displayname: string | null,
   ) {
     this.id = id;
     this.no = no;

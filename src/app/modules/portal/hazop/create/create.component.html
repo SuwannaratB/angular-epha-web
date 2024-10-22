@@ -1,6 +1,9 @@
 <div *ngIf="!isLoading" class="flex flex-col gap-4 min-h-[92vh] py-2 px-6">
     <app-header 
-        [phaNo]="phaNo" 
+        [phaNo]="header?.pha_no" 
+        [revision]="header?.pha_version_text && header?.pha_version_desc ? (header?.pha_version_text + '('+ header?.pha_version_desc + ') ') : ''"
+        [requestBy]="header?.pha_request_by"
+        [requestStatus]="header?.pha_status"
         [urlBack]="params ? 'search' : ''"
         (outSave)="onSave()"
         (outCancel)="onCancel()"
@@ -36,6 +39,9 @@
             <div role="tabpanel" class="tab-content border-[2px] border-t-primary py-6">
                 <app-tab-session
                     [sessionForm]="sessionForm"
+                    [memberTeamDelete]="memberTeamDelete"
+                    [approverDelete]="approverDelete"
+                    [header]="header"
                 />
             </div>
             <input type="radio" 

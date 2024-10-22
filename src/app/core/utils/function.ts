@@ -1,5 +1,7 @@
 import { ActivatedRoute, Router } from "@angular/router";
 import { NextPage } from "../models/next-page.model";
+import { MemberTeam } from "../models/member-team-model/member-team.model";
+import { Approver } from "../models/member-team-model/approver.model";
 
 // Check Next Pages
 export async function checkNavigateNextPage(route: ActivatedRoute, router: Router): Promise<void>{
@@ -60,4 +62,20 @@ export function getIdMaster(listMaster: { id: number, name: string }[], name: st
 export function  transformDate(dateTimeString: string): string {
   const date = new Date(dateTimeString);
   return date.toISOString().split('T')[0];
+}
+
+// delete 
+export function deleteDataArray(data: MemberTeam[] | Approver[], type: string): MemberTeam[]|Approver[]{
+  for (let i = 0; i < data.length; i++) {
+    data[i].action_change = 1;
+    data[i].action_type = 'delete';
+  }
+
+  if (type === 'member_team') {
+    return data as MemberTeam[];
+  }
+  if (type === 'approver') {
+    return data as Approver[];
+  }
+  return []
 }
