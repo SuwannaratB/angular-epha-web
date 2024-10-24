@@ -24,7 +24,7 @@
 
 <div class="w-full flex flex-col gap-1" *ngIf="type == 'area'" >
     <label class="block text-sm text-gray-600" *ngIf="label" for="{{ name }}">{{ label.toLocaleUpperCase() }}</label>
-    <textarea  class="block p-2.5 w-full text-md text-gray-900 bg-white rounded-lg border border-gray-300" 
+    <textarea  class="block p-2.5 w-full text-md text-gray-900 bg-white border border-gray-300 rounded-md" 
         style="outline: none;"
         id="message" 
         [rows]="rows"

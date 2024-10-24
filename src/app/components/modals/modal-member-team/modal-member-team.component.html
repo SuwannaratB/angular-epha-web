@@ -8,7 +8,7 @@
         <label class="text-md font-medium pl-1" for="">Indicator</label>
         <app-input icon="search" placeholder="Indicator" [formControl]="searchForm.get('indicator')" (outChange)="onChangeSearch($event)" />
     </div>
-    <div class="h-[40vh] overflow-auto">
+    <div class="max-h-[30vh] overflow-auto">
         <table class="table text-md">
           <!-- head -->
           <thead>
@@ -43,4 +43,16 @@
           </tbody>
         </table>
     </div>
+    <div class="w-[50%]" *ngIf="data.value.length">
+      <app-title title="Member Team" />
+      <table class="table text-md mt-4">
+        <tbody>
+          <tr class="hover:bg-gray-100 border-none cursor-pointer font-medium" *ngFor="let item of data.value">
+              <td class="text-center w-[10%]"><app-icon-button icon="delete" (outClick)="onRemoveMember(item.id!)" /></td>
+              <td class="text-start w-[80%]">{{item.user_displayname}}</td>
+              <td class="text-center w-[10%]">{{item.user_title}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
 </div>

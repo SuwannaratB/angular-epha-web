@@ -1,3 +1,5 @@
+import { MemberTeam } from "../member-team-model/member-team.model";
+
 export class HazopSession {
     action_change: number;
     id_pha: number;
@@ -26,6 +28,7 @@ export class HazopSession {
     meeting_end_time_hh: string;
     meeting_end_time_mm: string;
     action_new_row: number;
+    member_team?: MemberTeam[];
   
     constructor(
       action_change: number,
@@ -54,7 +57,8 @@ export class HazopSession {
       meeting_start_time_mm: string,
       meeting_end_time_hh: string,
       meeting_end_time_mm: string,
-      action_new_row: number = 0
+      action_new_row: number,
+      member_team?: MemberTeam[],
     ) {
       this.action_change = action_change;
       this.id_pha = id_pha;
@@ -83,6 +87,7 @@ export class HazopSession {
       this.meeting_end_time_hh = meeting_end_time_hh;
       this.meeting_end_time_mm = meeting_end_time_mm;
       this.action_new_row = action_new_row;
+      this.member_team = member_team;
     }
   }
   

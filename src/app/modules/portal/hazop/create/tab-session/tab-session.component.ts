@@ -9,6 +9,7 @@ import { Header } from '../../../../../core/models/header-model/header.model';
 import { MemberTeam } from '../../../../../core/models/member-team-model/member-team.model';
 import { Approver } from '../../../../../core/models/member-team-model/approver.model';
 import { deleteDataArray } from '../../../../../core/utils/function';
+import { HazopSession } from '../../../../../core/models/hazop-model/hazop-session.model';
 
 @Component({
   selector: 'app-tab-session',
@@ -41,17 +42,30 @@ export class TabSessionComponent {
     }
   }
 
-  openDialog(value: MemberTeam[]|Approver[], type: string, index: number): void{
+  openDialog(session: HazopSession, value: MemberTeam[]|Approver[], type: string, index: number): void{
     const dialogRef = this.dialog.open(ModalMemberTeamComponent, {
+      disableClose: true ,
       panelClass: 'member-dialog',
       data: {
+        session: session,
         value: value,
         type: type,
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      if (result.type === 'member_team') {
+        this.memberTeamDelete = [...this.memberTeamDelete, ...result.remove];
+        const session = this.sessionForm.at(index);
+        session.patchValue({ member_team: [...result.data] });
+        console.log(session.value)
+      }
+      if (result.type === 'approver') {
+        this.approverDelete = [...this.approverDelete, ...result.remove];
+        const session = this.sessionForm.at(index);
+        session.patchValue({ approver: [...result.data] });
+        console.log(session.value)
+      }
       // คุณสามารถจัดการผลลัพธ์หลังจากโมดัลปิดได้ที่นี่
     });
   }
@@ -94,11 +108,7 @@ export class TabSessionComponent {
         meeting_end_time_hh: 0,
         meeting_end_time_mm: 0,
       });
-      console.log(session.value)
-      console.log(this.memberTeamDelete)
-      console.log(this.approverDelete)
     }
-    // this.sessionForm.removeAt(index);
   }
 
   onCopySession(index: number) {

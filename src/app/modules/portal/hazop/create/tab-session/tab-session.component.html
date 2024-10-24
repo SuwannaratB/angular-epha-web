@@ -1,10 +1,10 @@
 <div class="main-card">
     <div class="max-h-96 overflow-auto mt-6">
         <table class="table text-md border border-gray-300">
-          <thead class="bg-[#f5f7fa]">
+          <thead class="">
             <tr class="uppercase text-gray-700">
               <th class="text-center  border-gray-300 w-[5%]" >No</th>
-              <th class="text-center  border-gray-300 ">Member team</th>
+              <th class="text-center  border-gray-300 ">Member team and Approver</th>
               <th class="text-center  border-gray-300 w-[30%]">Session Date Time</th>
               <th class="text-center  border-gray-300 w-[10%]" ></th>
             </tr>
@@ -19,12 +19,12 @@
                         <app-member-button 
                             label="Add Member Team" 
                             [memberTeamData]="itemControl.value.member_team" 
-                            (outClick)="openDialog(sessionForm.value[i].member_team, 'member_team', i)" 
+                            (outClick)="openDialog(sessionForm.value[i], sessionForm.value[i].member_team, 'member_team', i)" 
                         />
                         <app-member-button 
                             label="Assessment Team Leader" 
                             [approverData]="itemControl.value.approver" 
-                            (outClick)="openDialog(sessionForm.value[i].approver, 'approver', i)" 
+                            (outClick)="openDialog(sessionForm.value[i], sessionForm.value[i].approver, 'approver', i)" 
                         />
                     </div>
                 </td>

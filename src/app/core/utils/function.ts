@@ -2,6 +2,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NextPage } from "../models/next-page.model";
 import { MemberTeam } from "../models/member-team-model/member-team.model";
 import { Approver } from "../models/member-team-model/approver.model";
+import { HazopSession } from "../models/hazop-model/hazop-session.model";
+import { HazopGeneral } from "../models/hazop-model/hazop-general.model";
 
 // Check Next Pages
 export async function checkNavigateNextPage(route: ActivatedRoute, router: Router): Promise<void>{
@@ -64,7 +66,7 @@ export function  transformDate(dateTimeString: string): string {
   return date.toISOString().split('T')[0];
 }
 
-// delete 
+// delete data in array
 export function deleteDataArray(data: MemberTeam[] | Approver[], type: string): MemberTeam[]|Approver[]{
   for (let i = 0; i < data.length; i++) {
     data[i].action_change = 1;
@@ -78,4 +80,9 @@ export function deleteDataArray(data: MemberTeam[] | Approver[], type: string): 
     return data as Approver[];
   }
   return []
+}
+
+// copy object
+export function copyObject(data: HazopGeneral[] | HazopSession[]): HazopGeneral[] | HazopSession[]{
+  return JSON.parse(JSON.stringify(data))
 }

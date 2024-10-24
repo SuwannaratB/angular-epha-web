@@ -3,3 +3,8 @@
     - npm install
     - ng s
 
+    - build
+        "src/favicon.ico",
+        "src/assets",
+        "public"
+

@@ -1,1 +1,109 @@
-<p>tab-node works!</p>
+<main class="flex flex-col gap-6">
+    <!-- Drawing & Reference -->
+    <section class="main-card" *ngIf="drawingForm">
+        <app-title title="Drawing & Reference" />
+        <div class="max-h-96 overflow-auto mt-6">
+            <table class="table text-md border border-gray-300">
+              <thead class="">
+                <tr class="uppercase text-gray-700">
+                  <th class="text-center  border-gray-300 w-[8%]" >No</th>
+                  <th class="text-center  border-gray-300 w-[23%]">Document Name</th>
+                  <th class="text-center  border-gray-300 w-[23%]">Drawing No</th>
+                  <th class="text-center  border-gray-300 w-[23%]" >Document File</th>
+                  <th class="text-center  border-gray-300 w-[23%]" >Comment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let itemControl of drawingForm.controls; let i = index">
+                    <td class="text-center align-top border-gray-300">
+                        <p class="pt-2">{{i+1}}</p>
+                    </td>
+                    <td class="text-center align-top border-gray-300">
+                      <app-input type="area" rows="1" [formControl]="itemControl.get('document_name')" />
+                    </td>
+                    <td class="text-center align-top border-gray-300">
+                      <app-input type="area" rows="1" [formControl]="itemControl.get('document_no')" />
+                    </td>
+                    <td class="text-center align-top border-gray-300">
+                      <div class="w-full flex items-center gap-2">
+                        <label class="block w-full h-full items-center text-md text-gray-900 bg-white border border-primary rounded-md">
+                            <div class="flex items-center gap-4 cursor-pointer min-h-10">
+                                <div class="flex items-center text-white bg-primary px-4 min-h-10">
+                                  <i *ngIf="!itemControl.value.document_file_name" class="fa-solid fa-arrow-up-from-bracket text-lg"></i>
+                                  <i *ngIf="itemControl.value.document_file_name" class="fa-solid fa-file-pdf text-lg"></i>
+                                </div>
+                                <p *ngIf="!itemControl.value.document_file_name">
+                                  Upload File (Wold,Excel,PDF,Image)
+                                </p>
+                                <p *ngIf="fileSelected || itemControl.value.document_file_name" class="flex gap-6 items-center text-sm font-medium text-primary">
+                                  {{ fileSelected ? fileSelected.name : itemControl.value.document_file_name + ' ('+ itemControl.value.document_file_size +' KB)'}}
+                                </p>
+                            </div>
+                            <input type="file" class="hidden" (change)="onFileSelected($event)">
+                        </label>
+                        <i class="fa-regular fa-trash-can text-lg text-danger" (click)="removeFile($event)"></i>
+                      </div>
+                    </td>
+                    <td class="text-center align-top border-gray-300">
+                      <app-input type="area" rows="1" [formControl]="itemControl.get('descriptions')" />
+                    </td>
+                </tr>
+                <tr *ngIf="!drawingForm.controls.length">
+                    <td colspan="9" class="text-center  border-gray-300">No data available</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </section>
+    <!-- Node List -->
+    <section class="main-card">
+        <app-title title="Node List" guideWord="Guide Words"/>
+        <div class="max-h-96 overflow-auto mt-6">
+          <table class="table text-md border border-gray-300">
+            <thead class="">
+              <tr class="uppercase text-gray-700">
+                <th class="text-center  border-gray-300 w-[3%]" >No</th>
+                <th class="text-center  border-gray-300 w-[15%]">Node</th>
+                <th class="text-center  border-gray-300 w-[15%]">Design Intent</th>
+                <th class="text-center  border-gray-300 w-[15%]">Design Conditions</th>
+                <th class="text-center  border-gray-300 w-[15%]">Operating Conditions</th>
+                <th class="text-center  border-gray-300 w-[15%]">Node Boundary</th>
+                <th class="text-center  border-gray-300 w-[15%]">Drawing</th>
+                <th class="text-center  border-gray-300 w-[7%]"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let itemControl of drawingForm.controls; let i = index">
+                  <td class="text-center align-top border-gray-300">
+                      <p class="pt-2">{{i+1}}</p>
+                  </td>
+                  <td class="text-center align-top border-gray-300">
+                    <app-input type="area" rows="1"  />
+                  </td>
+                  <td class="text-center align-top border-gray-300">
+                    <app-input type="area" rows="1"  />
+                  </td>
+                  <td class="text-center align-top border-gray-300">
+                    <app-input type="area" rows="1"  />
+                  </td>
+                  <td class="text-center align-top border-gray-300">
+                    <app-input type="area" rows="1"  />
+                  </td>
+                  <td class="text-center align-top border-gray-300">
+                    <app-input type="area" rows="1"  />
+                  </td>
+                  <td class="text-center align-top border-gray-300">
+                    <app-select  />
+                  </td>
+                  <td class="text-center align-top border-gray-300">
+                    <app-icon-button icon="pdf" />
+                  </td>
+              </tr>
+              <tr *ngIf="!drawingForm.controls.length">
+                  <td colspan="9" class="text-center  border-gray-300">No data available</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </section>
+</main>

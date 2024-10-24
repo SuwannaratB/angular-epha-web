@@ -8,6 +8,10 @@ import { LoadingService } from '../../../core/services/loading-service/loading.s
 import { MemberTeam } from '../../../core/models/member-team-model/member-team.model';
 import { MaxService } from '../../../core/services/max-service/max.service';
 import { Approver } from '../../../core/models/member-team-model/approver.model';
+import { deleteDataArray } from '../../../core/utils/function';
+import { Header } from '../../../core/models/header-model/header.model';
+import { HazopSession } from '../../../core/models/hazop-model/hazop-session.model';
+import { HraSession } from '../../../core/models/hra-model/hra-session.model';
 
 @Component({
   selector: 'app-modal-member-team',
@@ -22,11 +26,17 @@ export class ModalMemberTeamComponent implements OnInit {
     private maxService: MaxService,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ModalMemberTeamComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { value: MemberTeam[]|Approver[], type: string } // รับข้อมูลที่ถูกส่งเข้ามา
+    @Inject(MAT_DIALOG_DATA) public data: { 
+      session: HazopSession | HraSession,
+      value: MemberTeam[]|Approver[], 
+      type: string 
+    }
   ){}
 
+  header: Header | undefined;
   dataEmployee: Employee[] = [];
   searchForm: FormBuilder | any;
+  listRemove: ( MemberTeam | Approver )[] = [];
 
   ngOnInit(): void {
     this.initSearchForm();
@@ -44,7 +54,7 @@ export class ModalMemberTeamComponent implements OnInit {
       next: () => {
         this._employeeService.getEmployee(data).subscribe({
           next: (value) => {
-            this.dataEmployee = value.employee
+            this.dataEmployee = value.employee.filter(item => item.id)
           },
           error: (err) => {
             this._loadingService.closeLoading();
@@ -81,8 +91,8 @@ export class ModalMemberTeamComponent implements OnInit {
       const newMember = new MemberTeam(
         maxSeq,
         maxSeq,
-        this.data.value[0].id_pha,
-        this.data.value[0].id_session,
+        this.data.session.id_pha,
+        this.data.session.id,
         null,
         1,
         'insert',
@@ -109,8 +119,8 @@ export class ModalMemberTeamComponent implements OnInit {
         maxSeq,
         maxSeq,
         null,
-        this.data.value[0].id_pha,
-        this.data.value[0].id_session,
+        this.data.session.id_pha,
+        this.data.session.id,
         null,
         'approver',
         'insert',
@@ -136,7 +146,20 @@ export class ModalMemberTeamComponent implements OnInit {
     console.log(this.data.value)
   }
 
+  onRemoveMember(id: number): void{
+    if(!id) return console.log('id not found!');
+    const delItem = this.data.value.find(item => item.id == id);
+    if(!delItem) console.log('item remove not found!');
+    this.listRemove.push(delItem!); 
+    this.data.value = this.data.value.filter(item => item.id != id);
+  }
+
   onClose(): void {
-    this.dialogRef.close();
+    const resultAfterRemove = deleteDataArray(this.listRemove, this.data.type);
+    this.dialogRef.close({
+      data: this.data.value,
+      remove: resultAfterRemove,
+      type: this.data.type
+    });
   }
 }

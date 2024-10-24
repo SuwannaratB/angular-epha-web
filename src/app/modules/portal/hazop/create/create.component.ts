@@ -7,7 +7,7 @@ import { HazopService } from '../../../../core/services/hazop-service/hazop.serv
 import { HazopGeneral } from '../../../../core/models/hazop-model/hazop-general.model';
 import { expenseType, subExpenseType } from '../../../../core/data/dataMaster';
 import { ActivatedRoute, Navigation, Router } from '@angular/router';
-import { getIdMaster, getNameMaster, getRouteParams, transformDate } from '../../../../core/utils/function';
+import { copyObject, getIdMaster, getNameMaster, getRouteParams, transformDate } from '../../../../core/utils/function';
 import { PageReq } from '../../../../core/models/page-req.model';
 import { NextPage } from '../../../../core/models/next-page.model';
 import { UnitNo } from '../../../../core/models/master_model/unit-no.model';
@@ -17,6 +17,7 @@ import { Ram } from '../../../../core/models/ram-model/ram.model';
 import { Header } from '../../../../core/models/header-model/header.model';
 import { Approver } from '../../../../core/models/member-team-model/approver.model';
 import { MaxService } from '../../../../core/services/max-service/max.service';
+import { HazopDrawing } from '../../../../core/models/hazop-model/hazop-drawing.model';
 
 @Component({
   selector: 'app-create',
@@ -29,13 +30,13 @@ export class CreateComponent implements OnInit {
   phaNo: string = 'HAZOP-2024-00000XX';
   header: Header | undefined;
   user: User | undefined
-  currentTab: number = 2;
+  currentTab: number = 3;
   isLoading: boolean = true;
   params: NextPage | undefined;
   // Form Groups
   generalForm: FormBuilder | any;
   sessionForm: FormBuilder | any;
-  // drawingForm: FormBuilder | any;
+  drawingForm: FormBuilder | any;
   // nodeForm: FormBuilder | any;
   // worksheetForm: FormBuilder | any;
   // recommendationForm: FormBuilder | any;
@@ -70,7 +71,7 @@ export class CreateComponent implements OnInit {
   initFormGroup(): void {
     this.generalForm = this.fb.array([]);
     this.sessionForm = this.fb.array([]);
-    // this.drawingForm = this.fb.array([]);
+    this.drawingForm = this.fb.array([]);
     // this.healthHazardForm = this.fb.array([]);
   }
 
@@ -88,6 +89,7 @@ export class CreateComponent implements OnInit {
             // General
             this.setGeneralForm(value.general);
             this.setSessionForm(value.session, value.memberteam, value.approver);
+            this.setDrawingForm(value.drawing);
             this.header = value.header[0];
             // Master
             this.listAPU = value.apu;
@@ -144,6 +146,16 @@ export class CreateComponent implements OnInit {
     console.log('sessionForm ==> ',this.sessionForm.value)
   }
 
+  setDrawingForm(valueDrawing: HazopDrawing[]): void {
+    this.drawingForm?.clear();
+    valueDrawing.forEach(data => {
+      this.drawingForm.push(this.fb.group({
+        ...data,
+      }));
+    });
+    console.log('drawingForm ==> ',this.drawingForm.value)
+  }
+
   toggleTabs(id:number): void{
     this.currentTab = id;
   }
@@ -156,9 +168,18 @@ export class CreateComponent implements OnInit {
     if (!this.generalForm.valid) {
       console.log('first')
     }
+    // general
+    const saveGeneral = copyObject(this.generalForm.value) as HazopGeneral[];
     this.generalForm.value[0].expense_type = getNameMaster(this.listProjectType, Number(this.generalForm.value[0].expense_type));
     this.generalForm.value[0].sub_expense_type = getNameMaster(this.listSubProjectType, Number(this.generalForm.value[0].sub_expense_type));
-    console.log(this.sessionForm.value)
+    // session
+    const saveSession = copyObject(this.sessionForm.value) as HazopSession[];
+
+    saveSession.forEach(element => {
+      delete element.member_team
+    });
+    console.log(saveSession)
+    console.log(saveGeneral)
   }
 
   onTaskRegister(): void{

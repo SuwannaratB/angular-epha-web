@@ -11,12 +11,12 @@
         </p>
       </ng-container>
       <ng-container *ngIf="memberTeamData.length != 0">
-        <p class="text-start pl-2" *ngFor="let itemMember of memberTeamData">
+        <p class="text-start font-medium pl-2" *ngFor="let itemMember of memberTeamData">
           {{itemMember.user_displayname}}
         </p>
       </ng-container>
       <ng-container *ngIf="approverData.length != 0">
-        <p class="text-start pl-2" *ngFor="let itemMember of approverData">
+        <p class="text-start font-medium pl-2" *ngFor="let itemMember of approverData">
           {{itemMember.user_displayname}}
         </p>
       </ng-container>

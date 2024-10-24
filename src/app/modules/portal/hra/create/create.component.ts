@@ -188,10 +188,10 @@ export class CreateComponent implements OnInit {
     const data  = {
       flow_action: 'save',
       token_doc: this.header?.seq?.toString(),
-      pha_status: this.header?.pha_status.toString(),
-      pha_version: this.header?.pha_version.toString(),
+      pha_status: this.header?.pha_status?.toString(),
+      pha_version: this.header?.pha_version?.toString(),
       action_part: '1',
-      user_name: this.header?.request_user_name.toString(),
+      user_name: this.header?.request_user_name?.toString(),
       json_header: JSON.stringify([this.header]),
       json_general: JSON.stringify([this.generalForm.value]),
       json_session :  '',
